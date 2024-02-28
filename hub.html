@@ -163,6 +163,37 @@
   .details button:hover {
     background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
   }
+
+
+
+  /* Botón interrno */
+  .button-container {
+    display: flex; /* Hace que los elementos hijos se muestren en línea */
+    justify-content: center; 
+}
+
+.styled-button {
+    background-color: #4CAF50; /* color de fondo */
+    border: none; /* sin borde */
+    color: white; /* color del texto */
+    padding: 11px 32px; /* tamaño del padding */
+    text-align: center; /* centrar el texto */
+    text-decoration: none; /* sin subrayado */
+    display: inline-block;
+    font-size: 16px; /* tamaño de fuente */
+    margin: 4px 2px; /* margen */
+    transition-duration: 0.4s; /* duración de la transición */
+    cursor: pointer; /* cursor */
+    border-radius: 10px; /* radio del borde */
+}
+
+.styled-button:hover {
+    background-color: #45a049; /* color de fondo al pasar el ratón */
+}
+
+
+
+  
 </style>
 <body>
   <div class="box">
@@ -206,18 +237,21 @@
       <p>Aplicación desarrollada de Instant App de ArcGIS que permite realizar un comparativo del servició de imágenes Sentinel2 
         en diferentes compuestos de bandas, para conocer el manejo de la aplicación se puede recurrir al video de navegación y su manual de uso.
       </p>
-      <form action="https://acortar.link/Knaygd" target="_blank">
-        <input  type="submit"  value="Ver aplicación" />
-    </form>
 
 
-    <form action="https://drive.google.com/file/d/1j_8LnuvcDmNBAOTCJystdr0TKZhBWRnP/view?usp=sharing" target="_blank">
-      <input  type="submit"  value="Ver video" />
-  </form>
-
-  <form action="https://drive.google.com/file/d/1qF8vnk69bLck8lC-xCev8qfkVmzKMy3p/view?usp=sharing" target="_blank">
-    <input  type="submit"  value="Ver manual" />
-</form>
+<div class="button-container">
+         <form action="https://acortar.link/Knaygd" target="_blank">
+            <input type="submit" value="Ver aplicación" class="styled-button" />
+        </form>
+        <form action="https://drive.google.com/file/d/1j_8LnuvcDmNBAOTCJystdr0TKZhBWRnP/view?usp=sharing" target="_blank">
+            <input type="submit" value="Ver video" class="styled-button" />
+        </form>
+        <form action="https://drive.google.com/file/d/1qF8vnk69bLck8lC-xCev8qfkVmzKMy3p/view?usp=sharing" target="_blank">
+            <input type="submit" value="Ver manual" class="styled-button" />
+        </form>
+    </div>
+   
+      
     </div>
   </div>
 
@@ -227,10 +261,12 @@
       <span class="close" onclick="closeModal('modal2')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
       <p>El tablero de seguimiento de Índice de Vegetación Mejorada (EVI por sus siglas en inglés) muestra el crecimiento de la planta de los bienes agrícolas asegurados, 
         con una actualización de imagen de cada 16 días, mostrando la comparación con el seguimiento con el año anterior y el promedio de los últimos cinco años.</p>
-      <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/e759ecb0f50e46d6a2e4afe21a62807e" target="_blank">
-        <input  type="submit"  value="Ver tablero" />
-    </form>
-    
+     <div class="button-container">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/e759ecb0f50e46d6a2e4afe21a62807e" target="_blank">
+            <input type="submit" value="Ver tablero" class="styled-button" />
+        </form>
+      </div>
+         
     </div>
   </div>
 
@@ -239,10 +275,13 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal3')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
       <p>Para condensar información relevante sobre la temática de los huracanes y el impacto en AGROASEMEX, se creó un reporte dinámico mediante Story Maps. </p>
-      <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/storymaps/stories/b5c942c8e8a8480498c0eef1681de644" target="_blank">
-        <input  type="submit"  value="Ver reporte" />
-    </form>
-    
+      
+      <div class="button-container">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/storymaps/stories/b5c942c8e8a8480498c0eef1681de644" target="_blank">
+            <input type="submit" value="Ver reporte" class="styled-button" />
+        </form>
+      </div>
+       
     </div>
   </div>
 
