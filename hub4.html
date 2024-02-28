@@ -163,6 +163,36 @@
   .details button:hover {
     background-color: #45a049; /* Cambia el color de fondo al pasar el mouse */
   }
+
+
+
+
+  /* Botón interrno */
+  .button-container {
+    display: flex; /* Hace que los elementos hijos se muestren en línea */
+    justify-content: center; 
+}
+
+.styled-button {
+    background-color: #4CAF50; /* color de fondo */
+    border: none; /* sin borde */
+    color: white; /* color del texto */
+    padding: 11px 32px; /* tamaño del padding */
+    text-align: center; /* centrar el texto */
+    text-decoration: none; /* sin subrayado */
+    display: inline-block;
+    font-size: 16px; /* tamaño de fuente */
+    margin: 4px 2px; /* margen */
+    transition-duration: 0.4s; /* duración de la transición */
+    cursor: pointer; /* cursor */
+    border-radius: 10px; /* radio del borde */
+}
+
+.styled-button:hover {
+    background-color: #45a049; /* color de fondo al pasar el ratón */
+}
+
+
 </style>
 <body>
   <div class="box">
@@ -204,9 +234,11 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
       <p>En proceso... </p>
-      <form action="linkaqui" target="_blank">
-        <input  type="submit"  value="Ver tablero" />
-    </form>
+      <div class="button-container">
+        <form action="link" target="_blank">
+            <input type="submit" value="Botón 1" class="styled-button" />
+        </form>
+      </div>
 
 
     
@@ -219,9 +251,11 @@
       <span class="close" onclick="closeModal('modal2')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
       <p>En proceso...
       </p>
-      <form action="linkaqui" target="_blank">
-        <input  type="submit"  value="Ver aplicación" />
-    </form>
+      <div class="button-container">
+        <form action="link" target="_blank">
+            <input type="submit" value="Botón 1" class="styled-button" />
+        </form>
+      </div>
     
     </div>
   </div>
@@ -231,9 +265,11 @@
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal3')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
       <p>En proceso... </p>
-      <form action="linkaqui" target="_blank">
-        <input  type="submit"  value="Ver tablero" />
-    </form>
+      <div class="button-container">
+        <form action="link" target="_blank">
+            <input type="submit" value="Botón 1" class="styled-button" />
+        </form>
+      </div>
     
     </div>
   </div>
