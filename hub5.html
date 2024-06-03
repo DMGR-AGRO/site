@@ -196,13 +196,25 @@
 </style>
 <body>
   <div class="box">
+
+    <div class="card">
+        <div class="imgBx">
+            <img src="./frentesfrios2.jpg" alt="images">
+        </div>
+        <div class="details">
+            <h2>Frentes Frios<br><br><span></span></h2>
+            <button onclick="openModal('modal1')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal1' -->
+        </div>
+      </div>
+
+
       <div class="card">
         <div class="imgBx">
             <img src="./agricola2.jpg" alt="images">
         </div>
         <div class="details">
             <h2>Exposición Agricola<br><br><span></span></h2>
-            <button onclick="openModal('modal1')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal1' -->
+            <button onclick="openModal('modal2')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal1' -->
         </div>
       </div>
     
@@ -212,7 +224,7 @@
          </div>
          <div class="details">
             <h2>Exposición Patrimonial<br><br><span> </span></h2>
-            <button onclick="openModal('modal2')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal2' -->
+            <button onclick="openModal('modal3')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal2' -->
           </div>
        </div>
 
@@ -221,37 +233,77 @@
   </div>
 
   <!-- Ventanas emergentes -->
+
   <div id="modal1" class="modal">
-    <!-- Contenido de la ventana emergente 1 -->
+    <!-- Contenido de la ventana emergente 3 -->
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
-      <p>En proceso... </p>
-      <div class="button-container">
-        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/d21cc040dbba414fa314ed71bcbfad5b" target="_blank">
-            <input type="submit" value="Botón 1" class="styled-button" />
-        </form>
-      </div>
+      <p>Muestra la ubicación del frente frío de acuerdo con la Administración Nacional Oceánica y Atmosférica <strong>(NOAA)</strong>, 
+        al igual que las zonas de baja presión (asociada a “mal tiempo” como precipitación) y las zonas de alta presión 
+        (asociadas a “buen tiempo”, días soleados).</p>
 
+        <p>
+          Además, muestra la temperatura mínima registrada del día en curso (registrada en el transcurso de las primeras horas del día) 
+          y el pronóstico de temperatura mínima para los próximos cuatro días. 
+        </p>
 
-    
-    </div>
-  </div>
+        <br>
+        <br>
 
-  <div id="modal2" class="modal">
-    <!-- Contenido de la ventana emergente 2 -->
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('modal2')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
-      <p>En proceso...
-      </p>
+        <strong>Periodo de actualización:</strong> Diario
+        <br>
+        <br>
+        <strong>Periodo del fenómeno:</strong> Octubre - Febrero (En este periodo se registran las temperaturas más bajas del año)
       <div class="button-container">
         <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/sites/#/centro-de-monitoreo-geoespacial-de-riesgo" target="_blank">
-            <input type="submit" value="Botón 1" class="styled-button" />
+            <input type="submit" value="Ver tablero" class="styled-button" />
         </form>
       </div>
     
     </div>
   </div>
 
+
+  <div id="modal2" class="modal">
+    <!-- Contenido de la ventana emergente 0 -->
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal2')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
+      <p>Seguimiento a la exposición del Seguro y
+        Reaseguro Agropecuario durante los eventos de huracán que tengan incidencia y
+        afectación en nuestro Territorio Nacional, monitoreando el fenómeno meteorológico
+        durante su proceso (áreas de afectación por viento, presión atmosférica,
+        pronostico de trayectoria, etc.) con actualizaciones cada 3 horas por parte de
+        la NHC (National Hurricane Center (NHC)).</p>
+      <div class="button-container">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/d21cc040dbba414fa314ed71bcbfad5b" target="_blank">
+            <input type="submit" value="Ver tablero" class="styled-button" />
+        </form>
+      </div>
+
+
+    
+    </div>
+  </div>
+
+
+
+  <div id="modal3" class="modal">
+    <!-- Contenido de la ventana emergente 1 -->
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('modal3')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
+      <p>En proceso... </p>
+      <div class="button-container">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/sites/#/centro-de-monitoreo-geoespacial-de-riesgo" target="_blank">
+            <input type="submit" value="Ver tablero" class="styled-button" />
+        </form>
+      </div>
+
+
+    
+    </div>
+  </div>
+
+ 
  
 
   <script>
