@@ -199,10 +199,10 @@
   <div class="box">
       <div class="card">
         <div class="imgBx">
-            <img src="./sequia2.jpg" alt="images">
+            <img src="./huracanes1_1.jpg" alt="images">
         </div>
         <div class="details">
-            <h2>Sequía<br><br><span></span></h2>
+            <h2>TEMPORADA DE HURACANES<span></span></h2>
             <button onclick="openModal('modal1')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal1' -->
         </div>
       </div>
@@ -219,10 +219,10 @@
 
        <div class="card">
          <div class="imgBx">
-            <img src="./maximas1.jpg" alt="images">
+            <img src="./sequia2.jpg" alt="images">
          </div>
          <div class="details">
-            <h2>Temperaturas máximas<br><br><span></span></h2>
+            <h2>SEQUÍA<br><br><span></span></h2>
             <button onclick="openModal('modal3')">Ver más</button> <!-- Botón que abre la ventana emergente con el ID 'modal3' -->
           </div>
        </div>
@@ -230,26 +230,38 @@
   </div>
 
   <!-- Ventanas emergentes -->
+
   <div id="modal1" class="modal">
-    <!-- Contenido de la ventana emergente 1 -->
+    <!-- Contenido de la ventana emergente 2 -->
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal1')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
-      <p>Muestra las zonas del país donde se establece la sequía, al igual que la intensidad de esta, la cual se clasifica 
-        en “Anormalmente seco”, “Sequía Moderada”, “Sequía Severa”, “Sequía Extrema” y “Sequía Excepcional”, esta clasificación 
-        se determinó entre los Organismos de México, Estados Unidos  y Canadá, que realizan el “Monitor de Sequía de América del Norte”. </p>
+      <p>
+        Se observan las tormentas tropicales y los huracanes activos en el Océano Pacifico y Atlántico que emite el 
+        Centro Nacional de Huracanes (<strong>NHC</strong> por sus siglas en inglés), en donde también se muestra la posible trayectoria y 
+        los vientos pronosticados. Estos pronósticos ayudan a dimensionar las posibles afectaciones por el paso del ciclón tropical.
+
+      </p>
+      <br>
       <br>
       <p>
-        <strong>Periodo de actualización:</strong> Cada 15 días 
-        <br><br>
-        <strong>Periodo del fenómeno:</strong> Permanente
+      <strong>Periodo de actualización:</strong> Diario
+      <br><br>
+	    <strong>Periodo del fenómeno:</strong> 15 de mayo – 30 de noviembre
+
       </p>
+
+
       <div class="button-container">
-        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/a2563195e4404a91a85ee2781d0145a7" target="_blank">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/f9a1ae6635324509bf70c3991fe23eee" target="_blank">
             <input type="submit" value="Ver tablero" class="styled-button" />
         </form>
       </div>
+    
     </div>
   </div>
+
+
+
 
   <div id="modal2" class="modal">
     <!-- Contenido de la ventana emergente 2 -->
@@ -274,27 +286,33 @@
     </div>
   </div>
 
+
+
+
   <div id="modal3" class="modal">
-    <!-- Contenido de la ventana emergente 3 -->
+    <!-- Contenido de la ventana emergente 1 -->
     <div class="modal-content">
       <span class="close" onclick="closeModal('modal3')">&times;</span> <!-- Botón para cerrar la ventana emergente -->
-      <p>Se observa la temperatura máxima registrada del día anterior, debido a que las temperaturas máximas se registran 
-        entre las 12:00 y las 16:00 horas del día en curso. Además de mostrar el pronóstico de temperatura máxima del día actual y de los próximos 3 días. </p>
+      <p>Muestra las zonas del país donde se establece la sequía, al igual que la intensidad de esta, la cual se clasifica 
+        en “Anormalmente seco”, “Sequía Moderada”, “Sequía Severa”, “Sequía Extrema” y “Sequía Excepcional”, esta clasificación 
+        se determinó entre los Organismos de México, Estados Unidos  y Canadá, que realizan el “Monitor de Sequía de América del Norte”. </p>
       <br>
       <p>
-      <strong>Periodo de actualización:</strong> Diario
+        <strong>Periodo de actualización:</strong> Cada 15 días 
         <br><br>
-	    <strong>Periodo del fenómeno:</strong> Marzo – Septiembre (En este periodo se registran las temperaturas más altas del año)
-
+        <strong>Periodo del fenómeno:</strong> Permanente
       </p>
       <div class="button-container">
-        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/22582bd105b742779b67bcde2f3d7760" target="_blank">
+        <form action="https://arcgisweb.agroasemex.gob.mx/portal/apps/dashboards/a2563195e4404a91a85ee2781d0145a7" target="_blank">
             <input type="submit" value="Ver tablero" class="styled-button" />
         </form>
       </div>
-    
     </div>
   </div>
+
+
+
+  
 
   <script>
     // Función para abrir la ventana emergente
