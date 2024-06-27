@@ -83,6 +83,18 @@ body section .row {
 .card .cover.item-c {
   background-image: url("https://arcgisweb.agroasemex.gob.mx/portal/sharing/rest/content/items/f58119b47c8442c9831d93998b397b06/data");
 }
+
+.card .cover.item-d {
+    background-image: url("https://arcgisweb.agroasemex.gob.mx/portal/sharing/rest/content/items/f7616d5c46e14f8e8805d0edb56dbdf6/data");
+  }
+  .card .cover.item-e {
+    background-image: url("https://arcgisweb.agroasemex.gob.mx/portal/sharing/rest/content/items/b6b6027ad5344b79b3185c6992d317c0/data");
+  }
+  .card .cover.item-f {
+    background-image: url("");
+  }
+
+
 .card .cover h1 {
   font-weight: 600;
   position: absolute;
