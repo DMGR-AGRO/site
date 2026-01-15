@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositorio de Avisos y Reportes</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Contenedor principal para las dos columnas */
+    .columns-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      gap: 30px; /* Espacio entre las columnas */
+    }
+
+    /* Estilo para cada columna */
+    .column {
+      flex: 1; /* Ocupa el mismo espacio que la otra columna */
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    /* Título de la columna */
+    .column-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #D0BB57;
+      padding-bottom: 10px;
+    }
+
+    /* Estilos para las secciones desplegables (los mismos que antes) */
+    .section {
+      border-bottom: 1px solid #e9ebee;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      cursor: pointer;
+      background-color: #f7f9fc;
+      transition: background-color 0.2s ease;
+    }
+
+    .section-header:hover {
+      background-color: #eef1f6;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .toggle-icon {
+      font-size: 24px;
+      font-weight: bold;
+      color: #666;
+      transition: transform 0.3s ease;
+    }
+
+    .section.active .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .document-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-in-out;
+    }
+
+    .section.active .document-list {
+      max-height: 1000px;
+    }
+
+    /* Estilos para los documentos */
+    .document-item {
+      border-top: 1px solid #e9ebee;
+    }
+
+    .document-link {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: #555;
+      transition: background-color 0.2s ease;
+    }
+
+    .document-link:hover {
+      background-color: #f7f9fc;
+    }
+
+    .icon-container {
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .small-icon {
+      width: 24px;
+      height: 24px;
+      color: #d6b600;
+      fill: currentColor;
+    }
+
+    .document-name {
+      font-size: 16px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="columns-container">
+  
+  <div class="column">
+    <div class="column-title">Avisos</div>
+    
+    <div class="section">
+      <div class="section-header">
+        <h2>Enero</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+          <a href="https://drive.google.com/uc?export=download&id=" download class="document-link">
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">AVISO_16-01-2026_1000H.pdf</span>
+          </a>
+        </li>
+
+        
+
+        
+      </ul>
+    </div>
+
+
+
+
+
+
+    
+    <div class="section">
+      <div class="section-header">
+        <h2>Febrero</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+          
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin aviso</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+   
+     <div class="section">
+      <div class="section-header">
+        <h2>Marzo</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+          
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin aviso</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+     <div class="section">
+      <div class="section-header">
+        <h2>Abril</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+          
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin aviso</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  
+
+  </div>
+  <div class="column">
+    <div class="column-title">Reportes</div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>Enero</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+         <a href="https://drive.google.com/uc?export=download&id=" download class="document-link">
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">REPORTE_EV_DD_MM_AA.pdf</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>Febrero</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+      
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin reporte</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="section">
+      <div class="section-header">
+        <h2>Marzo</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+         <li class="document-item">
+         <a href="https://drive.google.com/uc?export=download&id=" download class="document-link">
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin reporte</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+
+       <div class="section">
+      <div class="section-header">
+        <h2>Abril</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        <li class="document-item">
+      
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">Sin reporte</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+  
+  <div class="column">
+    <div class="column-title">Reporte Final</div>
+
+    <div class="section">
+      <div class="section-header">
+        <h2>2026</h2>
+        <span class="toggle-icon">&gt;</span>
+      </div>
+      <ul class="document-list">
+        
+
+        <li class="document-item">
+            <a href="https://drive.google.com/uc?export=download&id=1Sf3HN1-sLzEcn16MzHiaQokBWz6m-Cmq" download class="document-link">
+            <div class="icon-container">
+              <svg class="small-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zM13 9v4h3l-4 4-4-4h3V9h2z"/></svg>
+            </div>
+            <span class="document-name">RF_DD_MM_2026.pdf</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+    
+
+
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.section-header').forEach(header => {
+    header.addEventListener('click', () => {
+      const section = header.parentElement;
+      section.classList.toggle('active');
+    });
+  });
+</script>
+
+</body>
+</html>
