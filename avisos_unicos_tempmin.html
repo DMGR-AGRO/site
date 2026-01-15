@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos y reportes</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #fff;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .image-card {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .image-card:hover {
+            transform: scale(1.05);
+        }
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .image-card:hover .overlay {
+            opacity: 1;
+        }
+        /* ESTILOS ORIGINALES PARA EL TEXTO DEL OVERLAY */
+        .overlay h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .overlay p {
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+        .download-btn {
+            background-color: #087f00;
+            color: white;
+            padding: 10px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #006336;
+        }
+        /* ESTILOS PARA EL TEXTO INICIAL (AFUERA) */
+        .initial-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            font-size: 1.5em; /* Aumenta el tamaño de la fuente */
+            font-weight: bold; /* Hace la fuente más gruesa */
+            color: white;
+            z-index: 2;
+            text-align: center;
+            transition: opacity 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.4); /* Añade el fondo semitransparente */
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .image-card:hover .initial-text {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="image-card">
+        <img src="red.jpg" alt="Avisos">
+        <div class="initial-text">
+            <p>Avisos</p>
+        </div>
+        <div class="overlay">
+            <h3>Avisos</h3>
+            <p>Fecha de emisión: 00/00/0000. <br> Hora de emisión: 00:00 A.M  <br> Tipo de evento: N/A  <br> Nombre del evento: N/A.</p>
+            <a href="https://drive.google.com/uc?export=download&id=" class="download-btn" download>Descargar PDF</a>
+        </div>
+    </div>
+    
+    <div class="image-card">
+        <img src="green.jpg" alt="Reportes por evento">
+        <div class="initial-text">
+            <p>Reportes por evento</p>
+        </div>
+        <div class="overlay">
+            <h3>Reportes por evento</h3>
+            <p>Fecha de emisión: 00/00/0000. <br> Hora de emisión: 00:00 <br> Tipo de evento: N/A  <br> Nombre del evento: N/A</p>
+            <a href="https://drive.google.com/uc?export=download&id=" class="download-btn" download>Descargar PDF</a>
+
+            
+        </div>
+    </div>
+
+  
+</div>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
