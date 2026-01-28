@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --ts: #d4c19d; --c12: #1e5649; --c35: #6d1a30; --empty: #e2e2e2;
+            --name-w: 95px; --sq: 19px; --gap: 4px;
+        }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px; background-color: #fff; }
+        .main-layout { display: flex; gap: 60px; align-items: flex-start; }
+        .chart { display: flex; flex-direction: column; }
+        
+        h2 { color: var(--c35); text-align: center; margin-bottom: 15px; font-size: 22px; letter-spacing: 1px; }
+
+        .header-grid {
+            display: grid;
+            grid-template-columns: var(--name-w) repeat(12, var(--sq));
+            column-gap: var(--gap);
+            margin-bottom: 8px;
+        }
+
+        .cat-main-title { grid-column: 5 / span 10; font-size: 11px; font-weight: bold; text-align: center; margin-bottom: 4px; }
+        .label { font-size: 10px; text-align: center; line-height: 1.1; display: flex; align-items: flex-end; justify-content: center; height: 28px; }
+        .bracket { height: 6px; border: 1px solid #444; border-bottom: none; margin-top: 2px; }
+
+        .data-container { display: flex; flex-direction: column; gap: var(--gap); }
+        .row { display: grid; grid-template-columns: var(--name-w) repeat(12, var(--sq)); column-gap: var(--gap); align-items: center; }
+
+        .name { font-size: 12px; font-weight: 600; color: #333; white-space: nowrap; }
+        .sq { width: var(--sq); height: var(--sq); background-color: var(--empty); }
+        
+        .bg-ts { background-color: var(--ts); }
+        .bg-c12 { background-color: var(--c12); }
+        .bg-c35 { background-color: var(--c35); }
+
+        .legend { margin-top: 40px; display: flex; gap: 35px; }
+        .leg-item { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: bold; }
+        .dot { width: 30px; height: 30px; border-radius: 50%; }
+    </style>
+</head>
+<body>
+
+<div class="main-layout">
+    <div class="chart">
+        <h2>ATLÁNTICO</h2>
+        <div class="header-grid">
+            <div class="cat-main-title">Categoría del huracán</div>
+            <div class="label" style="grid-column: 2/span 2;">Tormenta<br>tropical</div>
+            <div class="label" style="grid-column: 4/span 2;">1</div>
+            <div class="label" style="grid-column: 6/span 2;">2</div>
+            <div class="label" style="grid-column: 8/span 2;">3</div>
+            <div class="label" style="grid-column: 10/span 2;">4</div>
+            <div class="label" style="grid-column: 12/span 2;">5</div>
+            <div class="bracket" style="grid-column: 2/span 2;"></div>
+            <div class="bracket" style="grid-column: 4/span 2;"></div>
+            <div class="bracket" style="grid-column: 6/span 2;"></div>
+            <div class="bracket" style="grid-column: 8/span 2;"></div>
+            <div class="bracket" style="grid-column: 10/span 2;"></div>
+            <div class="bracket" style="grid-column: 12/span 2;"></div>
+        </div>
+
+        <div class="data-container">
+            <div class="row"><div class="name">Andrea</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Barry</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Chantal</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Dexter</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Erin</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Fernand</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Gabrielle</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Humberto</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div></div>
+            <div class="row"><div class="name">Imelda</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Jerry</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Karen</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Lorenzo</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Melissa</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div></div>
+            <div class="row"><div class="name">Nestor</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Olga</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Pablo</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Rebekah</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Sebastien</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Tanya</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Van</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Wendy</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+        </div>
+    </div>
+
+    <div class="chart">
+        <h2>PACÍFICO</h2>
+        <div class="header-grid">
+            <div class="cat-main-title">Categoría del huracán</div>
+            <div class="label" style="grid-column: 2/span 2;">Tormenta<br>tropical</div>
+            <div class="label" style="grid-column: 4/span 2;">1</div>
+            <div class="label" style="grid-column: 6/span 2;">2</div>
+            <div class="label" style="grid-column: 8/span 2;">3</div>
+            <div class="label" style="grid-column: 10/span 2;">4</div>
+            <div class="label" style="grid-column: 12/span 2;">5</div>
+            <div class="bracket" style="grid-column: 2/span 2;"></div>
+            <div class="bracket" style="grid-column: 4/span 2;"></div>
+            <div class="bracket" style="grid-column: 6/span 2;"></div>
+            <div class="bracket" style="grid-column: 8/span 2;"></div>
+            <div class="bracket" style="grid-column: 10/span 2;"></div>
+            <div class="bracket" style="grid-column: 12/span 2;"></div>
+        </div>
+
+        <div class="data-container">
+            <div class="row"><div class="name">Alvin</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Barbara</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Cosme</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Dalila</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Erick</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Flossie</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Gil</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Henriette</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Ivo</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Juliette</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Kiko</div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq bg-c35"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Lorena</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Mario</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Narda</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Octave</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Priscilla</div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq bg-c12"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Raymond</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Sonia</div><div class="sq bg-ts"></div><div class="sq bg-ts"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Tico</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Velma</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Wallis</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Xina</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">York</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+            <div class="row"><div class="name">Zelda</div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div><div class="sq"></div></div>
+        </div>
+    </div>
+</div>
+
+<div class="legend">
+    <div class="leg-item"><div class="dot bg-ts"></div> Tormenta tropical</div>
+    <div class="leg-item"><div class="dot bg-c12"></div> Huracán (Cat. 1 y 2)</div>
+    <div class="leg-item"><div class="dot bg-c35"></div> Huracán cat. mayor (Cat. 3, 4 y 5)</div>
+</div>
+
+</body>
+</html>
