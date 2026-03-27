@@ -46,8 +46,8 @@
 <body>
 
     <div class="no-print">
-        <h3>Panel de Control</h3>
-        <p>1. Carga el CSV. 2. Edita los textos de las firmas. 3. Imprime.</p>
+        <h3>Panel de Control - Acta de Visita</h3>
+        <p>1. Carga el CSV. 2. Cambia los nombres para firma. 3. Imprime.</p>
         <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
         <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Acta</button>
     </div>
@@ -137,7 +137,7 @@
         </tr>
     </table>
 
-    <div class="section-title">FIRMAS </div>
+    <div class="section-title">FIRMAS</div>
     <table class="signature-container">
         <tr>
             <td>
@@ -146,12 +146,12 @@
                 <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
             </td>
             <td>
-                <span class="label-top" contenteditable="true">Representante del Asegurado</span>
+                <span class="label-top" contenteditable="true">Autoridad Local / Testigo</span>
                 <div class="sig-line"></div>
                 <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
             </td>
             <td>
-                <span class="label-top" contenteditable="true">Evaluador</span>
+                <span class="label-top" contenteditable="true">Evaluador / Inspector</span>
                 <div class="sig-line"></div>
                 <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
             </td>
@@ -180,10 +180,19 @@
                     return "---";
                 };
 
-                // Asignar valores (incluyendo num_acta)
+                // LÓGICA PARA NÚCLEO AGRARIO (Condicional)
+                let n_principal = getLastValidVal('nucleo_agr');
+                let n_alternativo = getLastValidVal('nucleo_agr2');
+                
+                if (n_principal.toUpperCase().includes("NO REGISTRADO - OTRO")) {
+                    document.getElementById('campo_nucleo_agr').innerText = n_alternativo;
+                } else {
+                    document.getElementById('campo_nucleo_agr').innerText = n_principal;
+                }
+
+                // Asignación del resto de campos
                 document.getElementById('campo_acta').innerText = getLastValidVal('acta');
                 document.getElementById('campo_num_acta').innerText = getLastValidVal('num_acta');
-                document.getElementById('campo_nucleo_agr').innerText = getLastValidVal('nucleo_agr');
                 document.getElementById('campo_nom_cultivo').innerText = getLastValidVal('nom_cultivo');
                 document.getElementById('campo_edo_mun').innerText = getLastValidVal('edo_mun');
                 document.getElementById('campo_ciclo').innerText = getLastValidVal('ciclo_agricola');
