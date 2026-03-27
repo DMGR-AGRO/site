@@ -36,8 +36,8 @@
 
         /* SECCIÓN DE FIRMAS */
         .signature-container { margin-top: 20px; border: none; width: 100%; }
-        .signature-container td { border: none; padding: 5px; width: 33%; vertical-align: top; text-align: center; }
-        .sig-line { border-top: 1px solid black; display: block; margin: 35px auto 5px auto; width: 85%; }
+        .signature-container td { border: none; padding: 5px; width: 50%; vertical-align: top; text-align: center; }
+        .sig-line { border-top: 1px solid black; display: block; margin: 35px auto 5px auto; width: 70%; }
         .sig-label { font-size: 7pt; font-weight: bold; display: block; }
 
         @media print {
@@ -53,7 +53,7 @@
 
     <div class="no-print">
         <h3>Generador de Anexos Técnicos</h3>
-        <p>Carga el CSV para generar los anexos con firmas incluidas.</p>
+        <p>Carga el CSV para generar los anexos. Si el núcleo es "NO REGISTRADO", se tomará el valor alternativo.</p>
         <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
         <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Todos los Anexos</button>
     </div>
@@ -83,6 +83,12 @@
                         return (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '---';
                     };
 
+                    // LÓGICA CONDICIONAL PARA NÚCLEO AGRARIO
+                    let nucleoDisplay = getV('nucleo_agr');
+                    if (nucleoDisplay.toUpperCase().includes("NO REGISTRADO - OTRO")) {
+                        nucleoDisplay = getV('nucleo_agr2');
+                    }
+
                     const page = document.createElement('div');
                     page.className = 'anexo-page';
 
@@ -107,7 +113,7 @@
                             </tr>
                             <tr>
                                 <td class="dynamic-cell">${getV('acta')}</td>
-                                <td class="dynamic-cell">${getV('nucleo_agr')}</td>
+                                <td class="dynamic-cell">${nucleoDisplay}</td>
                                 <td class="dynamic-cell">${getV('edo_mun')}</td>
                                 <td class="dynamic-cell">${getV('ciclo_agricola')}</td>
                             </tr>
@@ -125,7 +131,7 @@
                             </tr>
                         </table>
 
-                        <div class="section-title">DETALLES DEL MUESTREO </div>
+                        <div class="section-title">DETALLES DEL MUESTREO</div>
                         
                         <table>
                             <tr class="header-table">
@@ -161,15 +167,14 @@
                             <tr>
                                 <td>
                                     <div class="sig-line"></div>
-                                    <span class="sig-label" contenteditable="true">Nombre</span>
-                                    <span style="font-size:6pt;">Nombre y firma del representante</span>
+                                    <span class="sig-label" contenteditable="true">NOMBRE Y FIRMA</span>
+                                    <span style="font-size:6pt;">Representante / Productor</span>
                                 </td>
                                 <td>
                                     <div class="sig-line"></div>
-                                    <span class="sig-label" contenteditable="true">Nombre</span>
-                                    <span style="font-size:6pt;">Nombre y firma del evaluador</span>
+                                    <span class="sig-label" contenteditable="true">NOMBRE Y FIRMA</span>
+                                    <span style="font-size:6pt;">Evaluador / Inspector</span>
                                 </td>
-                               
                             </tr>
                         </table>
                     `;
