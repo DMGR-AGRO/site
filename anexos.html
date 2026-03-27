@@ -53,7 +53,7 @@
 
     <div class="no-print">
         <h3>Generador de Anexos Técnicos</h3>
-        <p>Carga el CSV para generar los anexos. </p>
+        <p>Carga el CSV para generar los anexos. Si el núcleo es "NO REGISTRADO", se tomará el valor alternativo.</p>
         <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
         <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Todos los Anexos</button>
     </div>
@@ -106,13 +106,13 @@
 
                         <table class="header-table">
                             <tr>
-                                <th>TIPO DE ACTA</th>
+                                
                                 <th>NÚCLEO AGRARIO</th>
                                 <th>ESTADO / MUNICIPIO</th>
                                 <th>CICLO</th>
                             </tr>
                             <tr>
-                                <td class="dynamic-cell">${getV('acta')}</td>
+                                
                                 <td class="dynamic-cell">${nucleoDisplay}</td>
                                 <td class="dynamic-cell">${getV('edo_mun')}</td>
                                 <td class="dynamic-cell">${getV('ciclo_agricola')}</td>
@@ -121,13 +121,13 @@
                                 <th>CULTIVO</th>
                                 <th>COORDENADAS (DMS)</th>
                                 <th>ÁREA (HA)</th>
-                                <th>CAUSA SINIESTRO</th>
+                                <th>FECHA INSPECCIÓN</th>
                             </tr>
                             <tr>
                                 <td class="dynamic-cell">${getV('nom_cultivo')}</td>
                                 <td class="dynamic-cell">${getV('coord_dms')}</td>
                                 <td class="dynamic-cell">${getV('area_ha')}</td>
-                                <td class="dynamic-cell">${getV('causa_sin')}</td>
+                                <td class="dynamic-cell">${getV('inspeccion')}</td>
                             </tr>
                         </table>
 
@@ -168,12 +168,12 @@
                                 <td>
                                     <div class="sig-line"></div>
                                     <span class="sig-label" contenteditable="true">NOMBRE Y FIRMA</span>
-                                    <span style="font-size:6pt;">Nombre y firma del representante</span>
+                                    <span style="font-size:6pt;">Representante / Productor</span>
                                 </td>
                                 <td>
                                     <div class="sig-line"></div>
                                     <span class="sig-label" contenteditable="true">NOMBRE Y FIRMA</span>
-                                    <span style="font-size:6pt;">Nombre y firma del evaluador</span>
+                                    <span style="font-size:6pt;">Evaluador / Inspector</span>
                                 </td>
                             </tr>
                         </table>
