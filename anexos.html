@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anexo de Inspección de Campo</title>
+    <style>
+        :root {
+            --green-header: #c5e0b4;
+            --green-dark: #76933c;
+            --grey-dynamic: #f2f2f2;
+            --border-color: #000;
+        }
+
+        body { font-family: Arial, sans-serif; font-size: 8pt; margin: 20px; line-height: 1.1; }
+        .no-print { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border: 1px dashed #ccc; border-radius: 8px; }
+        
+        .anexo-page { page-break-after: always; margin-bottom: 30px; border: 1px solid #ccc; padding: 15px; position: relative; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
+        th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; }
+        
+        .header-table th { background-color: var(--green-header); font-weight: bold; font-size: 7.5pt; }
+        .dynamic-cell { background-color: var(--grey-dynamic); font-weight: bold; text-transform: uppercase; }
+        
+        .section-title { background-color: var(--green-dark); color: white; font-weight: bold; padding: 5px; text-align: center; margin: 8px 0; }
+        
+        .logo-img { max-width: 140px; max-height: 50px; object-fit: contain; }
+        .obs-text { text-align: left; height: 35px; vertical-align: top; padding: 8px; }
+
+        .num-acta-header { font-size: 10pt; font-weight: bold; padding: 8px; text-align: center; }
+        
+        /* Rendimiento resaltado */
+        .rendimiento-final-table { margin-top: 10px; width: 45%; margin-left: auto; border: 2px solid var(--green-dark); }
+        .rendimiento-val { font-size: 10pt; background-color: #dbdbdb !important; }
+
+        /* SECCIÓN DE FIRMAS */
+        .signature-container { margin-top: 20px; border: none; width: 100%; }
+        .signature-container td { border: none; padding: 5px; width: 33%; vertical-align: top; text-align: center; }
+        .sig-line { border-top: 1px solid black; display: block; margin: 35px auto 5px auto; width: 85%; }
+        .sig-label { font-size: 7pt; font-weight: bold; display: block; }
+
+        @media print {
+            .no-print { display: none; }
+            .anexo-page { border: none; padding: 0; }
+            body { margin: 0; }
+            .dynamic-cell { background-color: transparent !important; }
+            .rendimiento-val { background-color: #a3a3a3 !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print">
+        <h3>Generador de Anexos Técnicos</h3>
+        <p>Carga el CSV para generar los anexos con firmas incluidas.</p>
+        <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
+        <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Todos los Anexos</button>
+    </div>
+
+    <div id="contenedor-anexos">
+        <p style="text-align: center; color: #666; margin-top: 50px;">Esperando archivo CSV...</p>
+    </div>
+
+    <script>
+        function processCSV(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const text = e.target.result;
+                const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+                if (lines.length < 2) return;
+
+                const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+                const allRows = lines.slice(1).map(line => parseCSVLine(line));
+                
+                const container = document.getElementById('contenedor-anexos');
+                container.innerHTML = ''; 
+
+                allRows.forEach((rowData) => {
+                    const getV = (col) => {
+                        const idx = headers.indexOf(col.toLowerCase());
+                        return (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '---';
+                    };
+
+                    const page = document.createElement('div');
+                    page.className = 'anexo-page';
+
+                    page.innerHTML = `
+                        <table>
+                            <tr>
+                                <td rowspan="2" style="width: 20%;"><img src="LOGO.png" class="logo-img"></td>
+                                <td style="width: 60%; font-weight: bold; font-size: 11pt;">ANEXO TÉCNICO DE INSPECCIÓN</td>
+                                <td style="width: 20%; font-weight: bold; font-size: 9pt;">ANEXO: ${getV('num_pred')}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="num-acta-header">NÚMERO DE ACTA: ${getV('num_acta')}</td>
+                            </tr>
+                        </table>
+
+                        <table class="header-table">
+                            <tr>
+                                <th>TIPO DE ACTA</th>
+                                <th>NÚCLEO AGRARIO</th>
+                                <th>ESTADO / MUNICIPIO</th>
+                                <th>CICLO</th>
+                            </tr>
+                            <tr>
+                                <td class="dynamic-cell">${getV('acta')}</td>
+                                <td class="dynamic-cell">${getV('nucleo_agr')}</td>
+                                <td class="dynamic-cell">${getV('edo_mun')}</td>
+                                <td class="dynamic-cell">${getV('ciclo_agricola')}</td>
+                            </tr>
+                            <tr>
+                                <th>CULTIVO</th>
+                                <th>COORDENADAS (DMS)</th>
+                                <th>ÁREA (HA)</th>
+                                <th>CAUSA SINIESTRO</th>
+                            </tr>
+                            <tr>
+                                <td class="dynamic-cell">${getV('nom_cultivo')}</td>
+                                <td class="dynamic-cell">${getV('coord_dms')}</td>
+                                <td class="dynamic-cell">${getV('area_ha')}</td>
+                                <td class="dynamic-cell">${getV('causa_sin')}</td>
+                            </tr>
+                        </table>
+
+                        <div class="section-title">DETALLES DEL MUESTREO </div>
+                        
+                        <table>
+                            <tr class="header-table">
+                                <th style="width: 40px;">MUESTRA</th>
+                                <th>A) Plantas por M lineal o M2</th>
+                                <th>B) Frutos por M lineal o M2</th>
+                                <th>C) Granos por pieza (promedio)</th>
+                                <th>D) Granos por M lineal o M2 (C*B)</th>
+                                <th>E) No. de granos por gramo</th>
+                                <th>F) Gramos por M lineal o M2 (D/E)</th>
+                                <th>G) Resultado KG/Ha</th>
+                            </tr>
+                            ${renderMuestraRow('1', getV)}
+                            ${renderMuestraRow('2', getV)}
+                            ${renderMuestraRow('3', getV)}
+                            ${renderMuestraRow('4', getV)}
+                            ${renderMuestraRow('5', getV)}
+                        </table>
+
+                        <div class="section-title">OBSERVACIONES DEL PUNTO</div>
+                        <table>
+                            <tr><td class="obs-text dynamic-cell">${getV('coment_indv')}</td></tr>
+                        </table>
+
+                        <table class="rendimiento-final-table">
+                            <tr>
+                                <th style="background-color: var(--green-dark); color: white; width: 60%; font-size: 8pt;">RENDIMIENTO PROMEDIO TOTAL (KG/HA)</th>
+                                <td class="rendimiento-val dynamic-cell">${getV('rendimiento')}</td>
+                            </tr>
+                        </table>
+
+                        <table class="signature-container">
+                            <tr>
+                                <td>
+                                    <div class="sig-line"></div>
+                                    <span class="sig-label" contenteditable="true">Nombre</span>
+                                    <span style="font-size:6pt;">Nombre y firma del representante</span>
+                                </td>
+                                <td>
+                                    <div class="sig-line"></div>
+                                    <span class="sig-label" contenteditable="true">Nombre</span>
+                                    <span style="font-size:6pt;">Nombre y firma del evaluador</span>
+                                </td>
+                               
+                            </tr>
+                        </table>
+                    `;
+                    container.appendChild(page);
+                });
+            };
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        function renderMuestraRow(num, getV) {
+            const p = num === '1' ? 'uno' : num === '2' ? 'dos' : num === '3' ? 'tres' : num === '4' ? 'cuatro' : 'cinco';
+            return `
+                <tr>
+                    <td style="font-weight:bold">#${num}</td>
+                    <td class="dynamic-cell">${getV(p+'_planta')}</td>
+                    <td class="dynamic-cell">${getV(p+'_fruto')}</td>
+                    <td class="dynamic-cell">${getV(p+'_grano')}</td>
+                    <td class="dynamic-cell">${getV(p+'_grano_area')}</td>
+                    <td class="dynamic-cell">${getV(p+'_cantidad_grano')}</td>
+                    <td class="dynamic-cell">${getV(p+'_cantidad_grano_area')}</td>
+                    <td class="dynamic-cell">${getV(p+'_peso')}</td>
+                </tr>
+            `;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '', inQuotes = false;
+            for (let char of line) {
+                if (char === '"') inQuotes = !inQuotes;
+                else if (char === ',' && !inQuotes) { result.push(current); current = ''; }
+                else { current += char; }
+            }
+            result.push(current);
+            return result;
+        }
+    </script>
+</body>
+</html>
