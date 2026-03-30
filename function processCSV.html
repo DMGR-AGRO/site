@@ -202,7 +202,8 @@
                 const tbody = document.getElementById('cuerpoPredios');
                 tbody.innerHTML = ''; 
 
-                allRows.forEach(rowData => {
+                // Usamos el índice (index) para generar el número consecutivo
+                allRows.forEach((rowData, index) => {
                     const getRowVal = (colName) => {
                         const idx = headers.indexOf(colName.toLowerCase());
                         return (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '';
@@ -215,8 +216,7 @@
                     else if (nivel.includes('total')) t = area;
 
                     tbody.innerHTML += `<tr>
-                        <td class="dynamic-cell">${getRowVal('num_pred')}</td>
-                        <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms')}</td>
+                        <td class="dynamic-cell">${index + 1}</td> <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms')}</td>
                         <td class="dynamic-cell">${s}</td>
                         <td class="dynamic-cell">${p}</td>
                         <td class="dynamic-cell">${t}</td>
