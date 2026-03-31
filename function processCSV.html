@@ -157,11 +157,13 @@
     </table>
 
     <script>
-        // Función de Limpieza Estricta
-        function cleanData(val) {
+        // Función de Limpieza mejorada para no cortar texto
+        function cleanData(val, isTextOnly = false) {
             if (!val || val.trim() === "" || val === '---' || val === 'null') return '---';
-            
             let cleanVal = val.trim();
+
+            // Si es un campo marcado como "Solo texto", no aplicar lógica numérica
+            if (isTextOnly) return cleanVal;
 
             // 1. Quitar horas de las fechas
             if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
@@ -192,9 +194,14 @@
                 const getLastValidVal = (colName) => {
                     const idx = headers.indexOf(colName.toLowerCase());
                     if (idx === -1) return "---";
+                    
+                    // Definimos qué columnas son texto para evitar que se corten
+                    const textFields = ['nucleo_agr', 'nucleo_agr2', 'edo_mun', 'nom_cultivo', 'ciclo_agricola', 'causa_sin', 'coment', 'topo', 'suelo', 'etapa'];
+                    const isText = textFields.includes(colName.toLowerCase());
+
                     for (let i = allRows.length - 1; i >= 0; i--) {
                         let val = allRows[i][idx] ? allRows[i][idx].trim() : "";
-                        if (val !== "" && val !== "0" && val !== "null") return cleanData(val);
+                        if (val !== "" && val !== "0" && val !== "null") return cleanData(val, isText);
                     }
                     return "---";
                 };
@@ -221,13 +228,13 @@
                 tbody.innerHTML = ''; 
 
                 allRows.forEach((rowData, index) => {
-                    const getRowVal = (colName) => {
+                    const getRowVal = (colName, isText = false) => {
                         const idx = headers.indexOf(colName.toLowerCase());
                         let val = (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '';
-                        return cleanData(val);
+                        return cleanData(val, isText);
                     };
 
-                    const nivel = getRowVal('nivel_afe').toLowerCase();
+                    const nivel = getRowVal('nivel_afe', true).toLowerCase();
                     const area = getRowVal('area_ha');
                     let s = '', p = '', t = '';
                     
@@ -237,7 +244,7 @@
 
                     tbody.innerHTML += `<tr>
                         <td class="dynamic-cell">${index + 1}</td> 
-                        <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms')}</td>
+                        <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms', true)}</td>
                         <td class="dynamic-cell">${s}</td>
                         <td class="dynamic-cell">${p}</td>
                         <td class="dynamic-cell">${t}</td>
