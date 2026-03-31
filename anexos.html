@@ -13,8 +13,24 @@
         }
 
         body { font-family: Arial, sans-serif; font-size: 8pt; margin: 20px; line-height: 1.1; }
-        .no-print { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border: 1px dashed #ccc; border-radius: 8px; }
         
+        /* Panel de control superior */
+        .no-print { 
+            background: #f4f4f4; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            border: 1px dashed #ccc; 
+            border-radius: 8px;
+        }
+        .config-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .config-item label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 9pt; }
+        .config-item input { width: 90%; padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+
         .anexo-page { page-break-after: always; margin-bottom: 30px; border: 1px solid #ccc; padding: 15px; position: relative; }
         
         table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
@@ -36,11 +52,11 @@
         .signature-container { margin-top: 20px; border: none; width: 100%; }
         .signature-container td { border: none; padding: 5px; width: 50%; vertical-align: top; text-align: center; }
         .sig-line { border-top: 1px solid black; display: block; margin: 35px auto 5px auto; width: 70%; }
-        .sig-label { font-size: 7pt; font-weight: bold; display: block; }
+        .sig-label { font-size: 8pt; font-weight: bold; display: block; text-transform: uppercase; min-height: 12px; }
 
         @media print {
             .no-print { display: none; }
-            .anexo-page { border: none; padding: 0; }
+            .anexo-page { border: none; padding: 0; margin-bottom: 0; }
             body { margin: 0; }
             .dynamic-cell { background-color: transparent !important; }
             .rendimiento-val { background-color: #a3a3a3 !important; -webkit-print-color-adjust: exact; }
@@ -51,9 +67,23 @@
 
     <div class="no-print">
         <h3>Generador de Anexos</h3>
-        <p>Carga el CSV para generar los anexos. </p>
-        <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
-        <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Todos los Anexos</button>
+        
+        <div class="config-grid">
+            <div class="config-item">
+                <label>Nombre del Representante:</label>
+                <input type="text" id="inputRep" placeholder="Escribe el nombre aquí..." oninput="updateSignatures()">
+            </div>
+            <div class="config-item">
+                <label>Nombre del Evaluador:</label>
+                <input type="text" id="inputEval" placeholder="Escribe el nombre aquí..." oninput="updateSignatures()">
+            </div>
+        </div>
+
+        <div style="border-top: 1px solid #ddd; padding-top: 15px;">
+            <label style="font-weight: bold;">Cargar datos (CSV):</label><br><br>
+            <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
+            <button onclick="window.print()" style="padding: 6px 20px; cursor: pointer; background: #76933c; color: white; border: none; border-radius: 4px; font-weight: bold;">Imprimir Todos los Anexos</button>
+        </div>
     </div>
 
     <div id="contenedor-anexos">
@@ -61,24 +91,28 @@
     </div>
 
     <script>
-        // Función Maestra de Limpieza para Números y Fechas
+        // Actualiza las firmas en tiempo real en todos los anexos generados
+        function updateSignatures() {
+            const repName = document.getElementById('inputRep').value;
+            const evalName = document.getElementById('inputEval').value;
+            
+            document.querySelectorAll('.label-rep').forEach(span => span.textContent = repName || '');
+            document.querySelectorAll('.label-eval').forEach(span => span.textContent = evalName || '');
+        }
+
         function cleanData(val) {
             if (!val || val.trim() === "" || val === '---' || val === 'null') return '---';
-            
             let cleanVal = val.trim();
 
-            // 1. Quitar horas de las fechas
             if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
                 return cleanVal.split(' ')[0];
             }
 
-            // 2. Limitar decimales a 2 para números puros (no afecta coordenadas con grados)
             let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
             if (isPureNumeric) {
                 let num = parseFloat(cleanVal);
                 return (Math.round(num * 100) / 100).toFixed(2);
             }
-
             return cleanVal;
         }
 
@@ -96,26 +130,17 @@
                 const container = document.getElementById('contenedor-anexos');
                 container.innerHTML = ''; 
 
+                // Obtener valores actuales de los inputs de firma
+                const currentRep = document.getElementById('inputRep').value;
+                const currentEval = document.getElementById('inputEval').value;
+
                 allRows.forEach((rowData, index) => {
                     const getV = (col) => {
                         const idx = headers.indexOf(col.toLowerCase());
                         let rawValue = (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '---';
-                        
-                        // EXCEPCIÓN: Estos campos NO se procesan como números para evitar que se corten nombres
-                        const camposDeTexto = [
-                            'nucleo_agr', 
-                            'nucleo_agr2', 
-                            'edo_mun', 
-                            'nom_cultivo', 
-                            'coment_indv', 
-                            'ciclo_agricola'
-                        ];
-                        
-                        if (camposDeTexto.includes(col.toLowerCase())) {
-                            return rawValue; // Retorna el texto tal cual
-                        }
-
-                        return cleanData(rawValue); // Limpia números y fechas para el resto
+                        const camposDeTexto = ['nucleo_agr', 'nucleo_agr2', 'edo_mun', 'nom_cultivo', 'coment_indv', 'ciclo_agricola'];
+                        if (camposDeTexto.includes(col.toLowerCase())) return rawValue;
+                        return cleanData(rawValue);
                     };
 
                     let nucleoDisplay = getV('nucleo_agr');
@@ -199,12 +224,12 @@
                             <tr>
                                 <td>
                                     <div class="sig-line"></div>
-                                    <span class="sig-label" contenteditable="true">NOMBRE </span>
+                                    <span class="sig-label label-rep">${currentRep}</span>
                                     <span style="font-size:6pt;">Nombre y firma del representante</span>
                                 </td>
                                 <td>
                                     <div class="sig-line"></div>
-                                    <span class="sig-label" contenteditable="true">NOMBRE </span>
+                                    <span class="sig-label label-eval">${currentEval}</span>
                                     <span style="font-size:6pt;">Nombre y firma del evaluador</span>
                                 </td>
                             </tr>
