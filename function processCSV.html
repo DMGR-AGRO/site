@@ -157,6 +157,27 @@
     </table>
 
     <script>
+        // Función de Limpieza Estricta
+        function cleanData(val) {
+            if (!val || val.trim() === "" || val === '---' || val === 'null') return '---';
+            
+            let cleanVal = val.trim();
+
+            // 1. Quitar horas de las fechas
+            if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
+                return cleanVal.split(' ')[0];
+            }
+
+            // 2. Limitar decimales a 2 para números puros
+            let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
+            if (isPureNumeric) {
+                let num = parseFloat(cleanVal);
+                return (Math.round(num * 100) / 100).toFixed(2);
+            }
+
+            return cleanVal;
+        }
+
         function processCSV(file) {
             if (!file) return;
             const reader = new FileReader();
@@ -173,7 +194,7 @@
                     if (idx === -1) return "---";
                     for (let i = allRows.length - 1; i >= 0; i--) {
                         let val = allRows[i][idx] ? allRows[i][idx].trim() : "";
-                        if (val !== "" && val !== "0" && val !== "null") return val;
+                        if (val !== "" && val !== "0" && val !== "null") return cleanData(val);
                     }
                     return "---";
                 };
@@ -181,11 +202,8 @@
                 let n_principal = getLastValidVal('nucleo_agr');
                 let n_alternativo = getLastValidVal('nucleo_agr2');
                 
-                if (n_principal.toUpperCase().includes("NO REGISTRADO")) {
-                    document.getElementById('campo_nucleo_agr').innerText = n_alternativo;
-                } else {
-                    document.getElementById('campo_nucleo_agr').innerText = n_principal;
-                }
+                document.getElementById('campo_nucleo_agr').innerText = 
+                    (n_principal.toUpperCase().includes("NO REGISTRADO")) ? n_alternativo : n_principal;
 
                 document.getElementById('campo_acta').innerText = getLastValidVal('acta');
                 document.getElementById('campo_num_acta').innerText = getLastValidVal('num_acta');
@@ -202,21 +220,24 @@
                 const tbody = document.getElementById('cuerpoPredios');
                 tbody.innerHTML = ''; 
 
-                // Usamos el índice (index) para generar el número consecutivo
                 allRows.forEach((rowData, index) => {
                     const getRowVal = (colName) => {
                         const idx = headers.indexOf(colName.toLowerCase());
-                        return (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '';
+                        let val = (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '';
+                        return cleanData(val);
                     };
+
                     const nivel = getRowVal('nivel_afe').toLowerCase();
                     const area = getRowVal('area_ha');
                     let s = '', p = '', t = '';
+                    
                     if (nivel.includes('sin')) s = area;
                     else if (nivel.includes('parcial')) p = area;
                     else if (nivel.includes('total')) t = area;
 
                     tbody.innerHTML += `<tr>
-                        <td class="dynamic-cell">${index + 1}</td> <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms')}</td>
+                        <td class="dynamic-cell">${index + 1}</td> 
+                        <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms')}</td>
                         <td class="dynamic-cell">${s}</td>
                         <td class="dynamic-cell">${p}</td>
                         <td class="dynamic-cell">${t}</td>
