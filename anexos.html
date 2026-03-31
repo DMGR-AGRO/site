@@ -61,6 +61,31 @@
     </div>
 
     <script>
+        // Función Maestra de Limpieza para Números y Fechas
+        function cleanData(val) {
+            if (!val || val.trim() === "" || val === '---') return '---';
+            
+            let cleanVal = val.trim();
+
+            // 1. Quitar horas de las fechas (detecta espacio y separadores / o -)
+            if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
+                cleanVal = cleanVal.split(' ')[0];
+                return cleanVal;
+            }
+
+            // 2. Limitar decimales a 2 (usando regex para no afectar coordenadas con símbolos)
+            // Esta regex valida si es un número puro (entero o con punto decimal)
+            let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
+
+            if (isPureNumeric) {
+                let num = parseFloat(cleanVal);
+                // Redondeo y formato a 2 decimales fijos
+                return (Math.round(num * 100) / 100).toFixed(2);
+            }
+
+            return cleanVal;
+        }
+
         function processCSV(file) {
             if (!file) return;
             const reader = new FileReader();
@@ -75,11 +100,11 @@
                 const container = document.getElementById('contenedor-anexos');
                 container.innerHTML = ''; 
 
-                // Se agrega "index" para generar el consecutivo automático
                 allRows.forEach((rowData, index) => {
                     const getV = (col) => {
                         const idx = headers.indexOf(col.toLowerCase());
-                        return (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '---';
+                        let rawValue = (idx !== -1 && rowData[idx]) ? rowData[idx] : '---';
+                        return cleanData(rawValue); 
                     };
 
                     let nucleoDisplay = getV('nucleo_agr');
