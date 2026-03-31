@@ -3,256 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acta de Visita de Inspección de Campo</title>
+    <title>Acta de Visita de Inspección de Campo - 10 Predios por Hoja</title>
     <style>
         :root {
             --green-header: #c5e0b4;
             --green-dark: #76933c;
-            --yellow-dynamic: #e3e3e3;
+            --yellow-dynamic: #f2f2f2;
             --border-color: #000;
         }
 
-        body { font-family: Arial, sans-serif; font-size: 9pt; margin: 20px; line-height: 1.2; }
-        .no-print { background: #f4f4f4; padding: 15px; margin-bottom: 20px; border: 1px dashed #ccc; border-radius: 8px; }
+        body { font-family: Arial, sans-serif; font-size: 8pt; margin: 0; padding: 0; background-color: #f4f4f4; }
         
-        table { width: 100%; border-collapse: collapse; margin-bottom: 5px; }
-        th, td { border: 1px solid var(--border-color); padding: 4px; text-align: center; }
+        .no-print { background: #fff; padding: 20px; border-bottom: 2px solid #ccc; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
         
-        .header-table th { background-color: var(--green-header); font-weight: bold; font-size: 8pt; }
-        .dynamic-cell { background-color: var(--yellow-dynamic); min-height: 1.2em; font-weight: bold; text-transform: uppercase; }
-        
-        .section-title { background-color: var(--green-dark); color: white; font-weight: bold; padding: 5px; text-align: center; margin-top: 10px; margin-bottom: 5px; }
-        
-        .logo-img { max-width: 140px; max-height: 50px; object-fit: contain; }
-        .obs-box { text-align: left; vertical-align: top; height: 60px; padding: 10px; }
+        .page {
+            background: white;
+            width: 21.59cm; 
+            min-height: 27.94cm; 
+            padding: 1cm 1.2cm;
+            margin: 15px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            page-break-after: always;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
 
-        .signature-container { margin-top: 20px; border: none; }
-        .signature-container td { border: none; padding: 15px 10px; width: 33%; vertical-align: top; text-align: center; }
-        .label-top { font-weight: bold; font-size: 8pt; margin-bottom: 40px; min-height: 30px; display: block; }
-        .sig-line { border-top: 1px solid black; display: block; margin: 0 auto; width: 90%; }
-        .footer-name { font-size: 8pt; margin-top: 5px; display: block; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+        th, td { border: 1px solid var(--border-color); padding: 3px; text-align: center; }
+        
+        .header-table th { background-color: var(--green-header); font-weight: bold; font-size: 7pt; }
+        .dynamic-cell { background-color: var(--yellow-dynamic); font-weight: bold; text-transform: uppercase; min-height: 1.1em; }
+        
+        .section-title { background-color: var(--green-dark); color: white; font-weight: bold; padding: 3px; text-align: center; margin: 4px 0; font-size: 8pt; }
+        
+        .logo-img { max-width: 130px; max-height: 40px; object-fit: contain; }
+        .obs-box { text-align: left; vertical-align: top; height: 50px; padding: 5px; font-size: 7.5pt; }
 
-        [contenteditable="true"] { border: 1px dotted #ddd; }
+        .signature-container { margin-top: 10px; border: none; width: 100%; }
+        .signature-container td { border: none; padding: 2px; width: 33%; vertical-align: top; text-align: center; }
+        .label-top { font-weight: bold; font-size: 7pt; margin-bottom: 30px; display: block; }
+        .sig-line { border-top: 1px solid black; display: block; margin: 0 auto; width: 80%; }
+        .footer-name { font-size: 7pt; margin-top: 3px; display: block; font-weight: bold; text-transform: uppercase; }
+
+        /* Eliminado el margin-top auto para evitar el salto visual en pantalla */
+        .page-footer-info { margin-top: 5px; } 
 
         @media print {
             .no-print { display: none; }
-            body { margin: 0; }
-            [contenteditable="true"] { border: none; }
-            .dynamic-cell { background-color: transparent !important; border: 1px solid #000; }
+            body { background: none; margin: 0; }
+            .page { margin: 0; box-shadow: none; width: 100%; height: 27.94cm; padding: 0.8cm; }
+            .dynamic-cell { background-color: transparent !important; }
         }
     </style>
 </head>
 <body>
 
     <div class="no-print">
-        <h3>Panel de Control - Acta de Visita</h3>
-        <p>1. Carga el CSV. 2. Cambia los nombres para firma. 3. Imprime.</p>
-        <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
-        <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Acta</button>
+        <h3>Acta de Visita - AGROASEMEX (10 registros por hoja)</h3>
+        <div style="display: flex; gap: 15px; margin-bottom: 10px; font-size: 9pt;">
+            <input type="text" id="sig_rep1" placeholder="Rep. Asegurado 1" oninput="renderPages()">
+            <input type="text" id="sig_rep2" placeholder="Rep. Asegurado 2" oninput="renderPages()">
+            <input type="text" id="sig_eval" placeholder="Nombre Evaluador" oninput="renderPages()">
+        </div>
+        <input type="file" id="csvFile" accept=".csv" onchange="handleFile(this.files[0])">
+        <button onclick="window.print()" style="padding: 6px 15px; cursor: pointer; background: #76933c; color: white; border: none; font-weight: bold;">Imprimir Acta</button>
     </div>
 
-    <table>
-        <tr>
-            <td rowspan="3" style="width: 20%;">
-                <img src="LOGO.png" alt="Logo" class="logo-img">
-            </td>
-            <td rowspan="2" style="width: 60%; font-weight: bold; font-size: 12pt;">ACTA DE VISITA DE INSPECCIÓN DE CAMPO</td>
-            <td style="width: 20%; font-weight: bold; font-size: 8pt;">TIPO DE ACTA:</td>
-        </tr>
-        <tr>
-            <td class="dynamic-cell" id="campo_acta">---</td>
-        </tr>
-        <tr>
-            <td style="font-weight: bold; border-top: none;">SEGURO AGRÍCOLA CATASTRÓFICO MULTICULTIVO</td>
-            <td style="font-weight: bold; font-size: 8pt;">NÚMERO DE ACTA: <span class="dynamic-cell" id="campo_num_acta" style="display:inline-block; width:100%; border:none;">---</span></td>
-        </tr>
-    </table>
-
-    <table class="header-table">
-        <tr>
-            <th>NÚCLEO AGRARIO / LOCALIDAD</th>
-            <th>MUNICIPIO / ESTADO</th>
-            <th>CICLO AGRÍCOLA</th>
-        </tr>
-        <tr>
-            <td class="dynamic-cell" id="campo_nucleo_agr">---</td>
-            <td class="dynamic-cell" id="campo_edo_mun">---</td>
-            <td class="dynamic-cell" id="campo_ciclo">---</td>
-        </tr>
-        <tr>
-            <th>CULTIVO</th>
-            <th>CAUSA DEL SINIESTRO</th>
-            <th>FECHA DE OCURRENCIA</th>
-        </tr>
-        <tr>
-            <td class="dynamic-cell" id="campo_nom_cultivo">---</td>
-            <td class="dynamic-cell" id="campo_causa_sin">---</td>
-            <td class="dynamic-cell" id="campo_ocurrencia">---</td>
-        </tr>
-    </table>
-
-    <div class="section-title">PUNTOS DE MUESTREO (DATOS DE CAMPO)</div>
-
-    <table id="tabla-muestreo">
-        <thead>
-            <tr style="background-color: #eee;">
-                <th rowspan="2">PREDIO</th>
-                <th rowspan="2">COORDENADAS<br>(DMS)</th>
-                <th colspan="3">NIVEL DE AFECTACIÓN (Superficie ha)</th>
-                <th rowspan="2">RENDIMIENTO<br>ESTIMADO (kg/ha)</th>
-            </tr>
-            <tr style="background-color: #eee;">
-                <th>SIN AFECTACIÓN</th>
-                <th>PÉRDIDA PARCIAL</th>
-                <th>PÉRDIDA TOTAL</th>
-            </tr>
-        </thead>
-        <tbody id="cuerpoPredios">
-            <tr><td colspan="6">Cargue un archivo CSV...</td></tr>
-        </tbody>
-    </table>
-
-    <div class="section-title">DATOS ADICIONALES Y OBSERVACIONES</div>
-    <table>
-        <tr class="header-table">
-            <th style="width: 33%;">TOPOGRAFÍA</th>
-            <th style="width: 33%;">TIPO DE SUELO</th>
-            <th style="width: 34%;">ETAPA FENOLÓGICA GENERAL</th>
-        </tr>
-        <tr>
-            <td class="dynamic-cell" id="campo_topo">---</td>
-            <td class="dynamic-cell" id="campo_suelo">---</td>
-            <td class="dynamic-cell" id="campo_etapa_gen">---</td>
-        </tr>
-    </table>
-
-    <table style="margin-top: 5px;">
-        <tr class="header-table">
-            <th>OBSERVACIONES GENERALES</th>
-        </tr>
-        <tr>
-            <td class="dynamic-cell obs-box" id="campo_coment">---</td>
-        </tr>
-    </table>
-
-    <div class="section-title">FIRMAS</div>
-    <table class="signature-container">
-        <tr>
-            <td>
-                <span class="label-top" contenteditable="true">Representante del Asegurado</span>
-                <div class="sig-line"></div>
-                <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
-            </td>
-            <td>
-                <span class="label-top" contenteditable="true">Representante del Asegurado</span>
-                <div class="sig-line"></div>
-                <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
-            </td>
-            <td>
-                <span class="label-top" contenteditable="true">Evaluador</span>
-                <div class="sig-line"></div>
-                <span class="footer-name" contenteditable="true">NOMBRE Y CARGO</span>
-            </td>
-        </tr>
-    </table>
+    <div id="documento-final"></div>
 
     <script>
-        // Función de Limpieza mejorada para no cortar texto
-        function cleanData(val, isTextOnly = false) {
-            if (!val || val.trim() === "" || val === '---' || val === 'null') return '---';
-            let cleanVal = val.trim();
+        let globalHeaders = [];
+        let globalRows = [];
 
-            // Si es un campo marcado como "Solo texto", no aplicar lógica numérica
-            if (isTextOnly) return cleanVal;
-
-            // 1. Quitar horas de las fechas
-            if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
-                return cleanVal.split(' ')[0];
-            }
-
-            // 2. Limitar decimales a 2 para números puros
-            let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
-            if (isPureNumeric) {
-                let num = parseFloat(cleanVal);
-                return (Math.round(num * 100) / 100).toFixed(2);
-            }
-
-            return cleanVal;
-        }
-
-        function processCSV(file) {
+        function handleFile(file) {
             if (!file) return;
             const reader = new FileReader();
             reader.onload = function(e) {
                 const text = e.target.result;
                 const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
-                if (lines.length < 2) return;
-
-                const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-                const allRows = lines.slice(1).map(line => parseCSVLine(line));
-
-                const getLastValidVal = (colName) => {
-                    const idx = headers.indexOf(colName.toLowerCase());
-                    if (idx === -1) return "---";
-                    
-                    // Definimos qué columnas son texto para evitar que se corten
-                    const textFields = ['nucleo_agr', 'nucleo_agr2', 'edo_mun', 'nom_cultivo', 'ciclo_agricola', 'causa_sin', 'coment', 'topo', 'suelo', 'etapa'];
-                    const isText = textFields.includes(colName.toLowerCase());
-
-                    for (let i = allRows.length - 1; i >= 0; i--) {
-                        let val = allRows[i][idx] ? allRows[i][idx].trim() : "";
-                        if (val !== "" && val !== "0" && val !== "null") return cleanData(val, isText);
-                    }
-                    return "---";
-                };
-
-                let n_principal = getLastValidVal('nucleo_agr');
-                let n_alternativo = getLastValidVal('nucleo_agr2');
-                
-                document.getElementById('campo_nucleo_agr').innerText = 
-                    (n_principal.toUpperCase().includes("NO REGISTRADO")) ? n_alternativo : n_principal;
-
-                document.getElementById('campo_acta').innerText = getLastValidVal('acta');
-                document.getElementById('campo_num_acta').innerText = getLastValidVal('num_acta');
-                document.getElementById('campo_nom_cultivo').innerText = getLastValidVal('nom_cultivo');
-                document.getElementById('campo_edo_mun').innerText = getLastValidVal('edo_mun');
-                document.getElementById('campo_ciclo').innerText = getLastValidVal('ciclo_agricola');
-                document.getElementById('campo_causa_sin').innerText = getLastValidVal('causa_sin');
-                document.getElementById('campo_ocurrencia').innerText = getLastValidVal('ocurrencia');
-                document.getElementById('campo_topo').innerText = getLastValidVal('topo');
-                document.getElementById('campo_suelo').innerText = getLastValidVal('suelo');
-                document.getElementById('campo_etapa_gen').innerText = getLastValidVal('etapa');
-                document.getElementById('campo_coment').innerText = getLastValidVal('coment');
-
-                const tbody = document.getElementById('cuerpoPredios');
-                tbody.innerHTML = ''; 
-
-                allRows.forEach((rowData, index) => {
-                    const getRowVal = (colName, isText = false) => {
-                        const idx = headers.indexOf(colName.toLowerCase());
-                        let val = (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '';
-                        return cleanData(val, isText);
-                    };
-
-                    const nivel = getRowVal('nivel_afe', true).toLowerCase();
-                    const area = getRowVal('area_ha');
-                    let s = '', p = '', t = '';
-                    
-                    if (nivel.includes('sin')) s = area;
-                    else if (nivel.includes('parcial')) p = area;
-                    else if (nivel.includes('total')) t = area;
-
-                    tbody.innerHTML += `<tr>
-                        <td class="dynamic-cell">${index + 1}</td> 
-                        <td class="dynamic-cell" style="font-size: 7pt;">${getRowVal('coord_dms', true)}</td>
-                        <td class="dynamic-cell">${s}</td>
-                        <td class="dynamic-cell">${p}</td>
-                        <td class="dynamic-cell">${t}</td>
-                        <td class="dynamic-cell">${getRowVal('rendimiento')}</td>
-                    </tr>`;
-                });
+                globalHeaders = lines[0].split(',').map(h => h.trim().toLowerCase());
+                globalRows = lines.slice(1).map(line => parseCSVLine(line));
+                renderPages();
             };
             reader.readAsText(file, 'UTF-8');
+        }
+
+        function cleanData(val, colName) {
+            if (!val || val.trim() === "" || val === '---' || val === 'null' || val === '0') return '---';
+            let cleanVal = val.trim();
+            const textFields = ['nucleo_agr', 'nucleo_agr2', 'edo_mun', 'nom_cultivo', 'ciclo_agricola', 'causa_sin', 'coment', 'topo', 'suelo', 'etapa', 'coord_dms', 'acta'];
+            
+            if (textFields.includes(colName.toLowerCase())) return cleanVal;
+            if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) return cleanVal.split(' ')[0];
+            
+            let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
+            if (isPureNumeric) {
+                return (Math.round(parseFloat(cleanVal) * 100) / 100).toFixed(2);
+            }
+            return cleanVal;
+        }
+
+        function renderPages() {
+            if (globalRows.length === 0) return;
+            const container = document.getElementById('documento-final');
+            container.innerHTML = '';
+
+            const itemsPerPage = 10; // Límite estricto de 10 predios por hoja
+            const totalPages = Math.ceil(globalRows.length / itemsPerPage);
+
+            const getV = (colName) => {
+                const idx = globalHeaders.indexOf(colName.toLowerCase());
+                if (idx === -1) return "---";
+                for (let i = globalRows.length - 1; i >= 0; i--) {
+                    let val = globalRows[i][idx] ? globalRows[i][idx].trim() : "";
+                    if (val !== "" && val !== "0" && val !== "null") return cleanData(val, colName);
+                }
+                return "---";
+            };
+
+            let n_principal = getV('nucleo_agr');
+            let n_alternativo = getV('nucleo_agr2');
+            let nucleoFinal = (n_principal.toUpperCase().includes("NO REGISTRADO")) ? n_alternativo : n_principal;
+
+            for (let i = 0; i < totalPages; i++) {
+                const pageDiv = document.createElement('div');
+                pageDiv.className = 'page';
+                
+                const currentRows = globalRows.slice(i * itemsPerPage, (i + 1) * itemsPerPage);
+
+                pageDiv.innerHTML = `
+                    <div style="text-align: right; font-size: 7pt; font-weight: bold; margin-bottom: 2px;">HOJA ${i + 1} DE ${totalPages}</div>
+                    
+                    <table>
+                        <tr>
+                            <td rowspan="3" style="width: 20%;"><img src="LOGO.png" class="logo-img"></td>
+                            <td rowspan="2" style="width: 60%; font-weight: bold; font-size: 10pt;">ACTA DE VISITA DE INSPECCIÓN DE CAMPO</td>
+                            <td style="width: 20%; font-weight: bold; font-size: 7pt;">TIPO DE ACTA:</td>
+                        </tr>
+                        <tr><td class="dynamic-cell">${getV('acta')}</td></tr>
+                        <tr>
+                            <td style="font-weight: bold; border-top: none; font-size: 8pt;">SEGURO AGRÍCOLA CATASTRÓFICO MULTICULTIVO</td>
+                            <td style="font-weight: bold; font-size: 7pt;">NÚMERO DE ACTA: <br><span class="dynamic-cell" style="border:none;">${getV('num_acta')}</span></td>
+                        </tr>
+                    </table>
+
+                    <table class="header-table">
+                        <tr><th>NÚCLEO AGRARIO / LOCALIDAD</th><th>MUNICIPIO / ESTADO</th><th>CICLO AGRÍCOLA</th></tr>
+                        <tr>
+                            <td class="dynamic-cell">${nucleoFinal}</td>
+                            <td class="dynamic-cell">${getV('edo_mun')}</td>
+                            <td class="dynamic-cell">${getV('ciclo_agricola')}</td>
+                        </tr>
+                        <tr><th>CULTIVO</th><th>CAUSA DEL SINIESTRO</th><th>FECHA DE OCURRENCIA</th></tr>
+                        <tr>
+                            <td class="dynamic-cell">${getV('nom_cultivo')}</td>
+                            <td class="dynamic-cell">${getV('causa_sin')}</td>
+                            <td class="dynamic-cell">${getV('ocurrencia')}</td>
+                        </tr>
+                    </table>
+
+                    <div class="section-title">PUNTOS DE MUESTREO (DATOS DE CAMPO)</div>
+                    <table>
+                        <thead>
+                            <tr style="background-color: #eee; font-size: 7pt;">
+                                <th rowspan="2">PREDIO</th><th rowspan="2">COORDENADAS (DMS)</th>
+                                <th colspan="3">NIVEL DE AFECTACIÓN (Superficie ha)</th>
+                                <th rowspan="2">RENDIMIENTO<br>ESTIMADO</th>
+                            </tr>
+                            <tr style="background-color: #eee; font-size: 6.5pt;">
+                                <th>SIN AFECTACIÓN</th><th>PARCIAL</th><th>TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${currentRows.map((row, idx) => renderRow(row, (i * itemsPerPage) + idx)).join('')}
+                        </tbody>
+                    </table>
+
+                    <div class="page-footer-info">
+                        <div class="section-title">DATOS ADICIONALES Y OBSERVACIONES</div>
+                        <table>
+                            <tr class="header-table"><th>TOPOGRAFÍA</th><th>TIPO DE SUELO</th><th>ETAPA FENOLÓGICA</th></tr>
+                            <tr>
+                                <td class="dynamic-cell">${getV('topo')}</td>
+                                <td class="dynamic-cell">${getV('suelo')}</td>
+                                <td class="dynamic-cell">${getV('etapa')}</td>
+                            </tr>
+                        </table>
+                        <table style="margin-top:4px;">
+                            <tr><th class="header-table">OBSERVACIONES GENERALES</th></tr>
+                            <tr><td class="dynamic-cell obs-box">${getV('coment')}</td></tr>
+                        </table>
+
+                        <div class="section-title" style="background: none; color: black; border: 1px solid black; margin-top: 10px;">FIRMAS</div>
+                        <table class="signature-container">
+                            <tr>
+                                <td>
+                                    <span class="label-top">Representante del Asegurado</span>
+                                    <div class="sig-line"></div>
+                                    <span class="footer-name">${document.getElementById('sig_rep1').value || 'NOMBRE Y CARGO'}</span>
+                                </td>
+                                <td>
+                                    <span class="label-top">Representante del Asegurado</span>
+                                    <div class="sig-line"></div>
+                                    <span class="footer-name">${document.getElementById('sig_rep2').value || 'NOMBRE Y CARGO'}</span>
+                                </td>
+                                <td>
+                                    <span class="label-top">Evaluador</span>
+                                    <div class="sig-line"></div>
+                                    <span class="footer-name">${document.getElementById('sig_eval').value || 'NOMBRE Y CARGO'}</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                `;
+                container.appendChild(pageDiv);
+            }
+        }
+
+        function renderRow(rowData, realIndex) {
+            const getRowVal = (colName) => {
+                const idx = globalHeaders.indexOf(colName.toLowerCase());
+                return rowData[idx] ? cleanData(rowData[idx].trim(), colName) : '---';
+            };
+            const nivel = getRowVal('nivel_afe').toLowerCase();
+            const area = getRowVal('area_ha');
+            let s = '', p = '', t = '';
+            if (nivel.includes('sin')) s = area;
+            else if (nivel.includes('parcial')) p = area;
+            else if (nivel.includes('total')) t = area;
+
+            return `<tr>
+                <td class="dynamic-cell" style="width:8%;">${realIndex + 1}</td>
+                <td class="dynamic-cell" style="font-size: 6.5pt; width:25%;">${getRowVal('coord_dms')}</td>
+                <td class="dynamic-cell" style="width:17%;">${s}</td>
+                <td class="dynamic-cell" style="width:17%;">${p}</td>
+                <td class="dynamic-cell" style="width:17%;">${t}</td>
+                <td class="dynamic-cell" style="width:16%;">${getRowVal('rendimiento')}</td>
+            </tr>`;
         }
 
         function parseCSVLine(line) {
