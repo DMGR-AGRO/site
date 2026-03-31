@@ -51,7 +51,7 @@
 
     <div class="no-print">
         <h3>Generador de Anexos</h3>
-        <p>Carga el CSV para generar los anexos.</p>
+        <p>Carga el CSV para generar los anexos. Los nombres de lugares no se cortarán, pero los números tendrán 2 decimales.</p>
         <input type="file" id="csvFile" accept=".csv" onchange="processCSV(this.files[0])">
         <button onclick="window.print()" style="padding: 5px 15px; cursor: pointer;">Imprimir Todos los Anexos</button>
     </div>
@@ -63,23 +63,19 @@
     <script>
         // Función Maestra de Limpieza para Números y Fechas
         function cleanData(val) {
-            if (!val || val.trim() === "" || val === '---') return '---';
+            if (!val || val.trim() === "" || val === '---' || val === 'null') return '---';
             
             let cleanVal = val.trim();
 
-            // 1. Quitar horas de las fechas (detecta espacio y separadores / o -)
+            // 1. Quitar horas de las fechas
             if (cleanVal.includes(' ') && (cleanVal.includes('/') || cleanVal.includes('-'))) {
-                cleanVal = cleanVal.split(' ')[0];
-                return cleanVal;
+                return cleanVal.split(' ')[0];
             }
 
-            // 2. Limitar decimales a 2 (usando regex para no afectar coordenadas con símbolos)
-            // Esta regex valida si es un número puro (entero o con punto decimal)
+            // 2. Limitar decimales a 2 para números puros (no afecta coordenadas con grados)
             let isPureNumeric = /^-?\d+(\.\d+)?$/.test(cleanVal);
-
             if (isPureNumeric) {
                 let num = parseFloat(cleanVal);
-                // Redondeo y formato a 2 decimales fijos
                 return (Math.round(num * 100) / 100).toFixed(2);
             }
 
@@ -103,8 +99,23 @@
                 allRows.forEach((rowData, index) => {
                     const getV = (col) => {
                         const idx = headers.indexOf(col.toLowerCase());
-                        let rawValue = (idx !== -1 && rowData[idx]) ? rowData[idx] : '---';
-                        return cleanData(rawValue); 
+                        let rawValue = (idx !== -1 && rowData[idx]) ? rowData[idx].trim() : '---';
+                        
+                        // EXCEPCIÓN: Estos campos NO se procesan como números para evitar que se corten nombres
+                        const camposDeTexto = [
+                            'nucleo_agr', 
+                            'nucleo_agr2', 
+                            'edo_mun', 
+                            'nom_cultivo', 
+                            'coment_indv', 
+                            'ciclo_agricola'
+                        ];
+                        
+                        if (camposDeTexto.includes(col.toLowerCase())) {
+                            return rawValue; // Retorna el texto tal cual
+                        }
+
+                        return cleanData(rawValue); // Limpia números y fechas para el resto
                     };
 
                     let nucleoDisplay = getV('nucleo_agr');
