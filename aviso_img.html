@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen Embebida desde Drive</title>
+    <style>
+        .contenedor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+        }
+        img {
+            max-width: 100%; /* Evita que la imagen sea más ancha que la pantalla */
+            height: auto;    /* Mantiene la proporción */
+            border-radius: 8px; /* Opcional: bordes redondeados */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Opcional: sombra */
+        }
+    </style>
+</head>
+<body>
+
+ <div style="display: flex; justify-content: center;">
+    <img src="https://drive.google.com/thumbnail?id=1rkHv4M3KtywyaaSJyZo17LpIGpC_9Eeb&sz=w1000" 
+         alt="Imagen desde Google Drive" 
+         style="max-width: 100%; height: auto;">
+</div>
+
+</body>
+</html>
