@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos y Reportes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #00452e; /* Verde esmeralda moderno */
+            --primary-hover: #003e2a;
+            --bg-color: #f3f4f6;
+            --text-main: #1f2937;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        .container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .image-card {
+            position: relative;
+            width: 320px;
+            height: 400px; /* Un poco más alta para que luzca más elegante */
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .image-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .image-card:hover img {
+            transform: scale(1.1);
+        }
+
+        /* TEXTO INICIAL (GLASSMORPHISM) */
+        .initial-text {
+            position: absolute;
+            bottom: 20px; /* Posicionado abajo para no tapar toda la imagen */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            z-index: 2;
+            text-align: center;
+            /* Efecto de cristal */
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .initial-text p {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .image-card:hover .initial-text {
+            opacity: 0;
+            transform: translate(-50%, 20px);
+        }
+
+        /* OVERLAY AL HACER HOVER */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.9));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 25px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 3;
+        }
+
+        .image-card:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay h3 {
+            margin: 0 0 15px 0;
+            font-size: 1.5em;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        .overlay p {
+            margin-bottom: 25px;
+            font-size: 0.9em;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* BOTÓN MEJORADO */
+        .download-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .download-btn:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+  
+    
+    <div class="image-card">
+        <img src="siniestro.jpg" alt="Reportes por evento">
+        <div class="initial-text">
+            <p>Reporte</p>
+        </div>
+        <div class="overlay">
+            <h3>Reporte por Evento</h3>
+            <p>
+                 <strong>Fecha:</strong> 00/00/0000 <br>
+                <strong>Hora:</strong> 00:00 <br>
+                <strong>Tipo:</strong> N/A <br>
+                <strong>Evento:</strong> N/A
+            </p>
+            <a href="https://drive.google.com/uc?export=download&id=" class="download-btn">Descargar PDF</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
