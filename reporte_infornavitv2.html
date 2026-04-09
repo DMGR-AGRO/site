@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos y Reportes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00452e;
+            --accent: #10b981;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg);
+            color: var(--text);
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 40px;
+            justify-content: center;
+        }
+
+        /* Estilo Editorial Minimalista */
+        .report-card {
+            background: var(--card-bg);
+            width: 320px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .report-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Contenedor de Imagen con altura fija */
+        .img-container {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .report-card:hover .img-container img {
+            transform: scale(1.1);
+        }
+
+        /* Badge flotante */
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(4px);
+            text-transform: uppercase;
+        }
+
+        /* Contenido inferior */
+        .content {
+            padding: 24px;
+        }
+
+        .content h3 {
+            margin: 0 0 12px 0;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Botón estilo "Ghost" que se rellena al hover */
+        .download-link {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .report-card:hover .download-link {
+            background: var(--primary);
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <article class="report-card">
+        <div class="img-container">
+            <img src="siniestro.jpg" alt="Reporte">
+            <span class="badge">Nuevo</span>
+        </div>
+        
+        <div class="content">
+            <h3>Reporte por evento</h3>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Fecha</span>
+                    <span class="info-value">09/04/2026</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Hora</span>
+                    <span class="info-value">14:30 PM</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Tipo</span>
+                    <span class="info-value">Hidro</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Lugar</span>
+                    <span class="info-value">N/A</span>
+                </div>
+            </div>
+
+            <a href="https://drive.google.com/uc?export=download&id=" class="download-link">Descargar PDF</a>
+        </div>
+    </article>
+
+    
+</div>
+
+</body>
+</html>
