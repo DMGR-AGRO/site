@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Eventos Dinámico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00452e;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg);
+        }
+
+        .report-card {
+            background: var(--card-bg);
+            width: 320px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .report-card:hover {
+            transform: translateY(-8px);
+        }
+
+        /* ESTA ES LA PARTE CLAVE PARA EL AJUSTE */
+        .img-container {
+            width: 100%;
+            height: 200px; /* Altura fija para que no se vea vacía */
+            overflow: hidden;
+            position: relative;
+            background-color: #e2e8f0;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; /* Ajusta la imagen al tamaño sin deformarla */
+            object-position: center; /* Centra la parte importante de la imagen */
+            transition: transform 0.5s ease;
+        }
+
+        .report-card:hover .img-container img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .content { padding: 24px; }
+        h3 { margin: 0 0 12px 0; color: var(--primary); font-weight: 800; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-item { display: flex; flex-direction: column; }
+        .info-label { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; font-weight: 600; }
+        .info-value { font-size: 0.85rem; font-weight: 600; }
+
+        .download-link {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .report-card:hover .download-link {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <article class="report-card">
+        <span class="badge">Nuevo</span>
+        <div class="img-container">
+            <img src="siniestro.jpg" alt="Reporte">
+        </div>
+        
+        <div class="content">
+            <h3>Reporte por evento</h3>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="fecha">--/--/----</span></div>
+                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="hora">--:-- --</span></div>
+                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="tipo">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Lugar</span><span class="info-value" id="lugar">--</span></div>
+            </div>
+            <a href="#" id="link-pdf" class="download-link" target="_blank">Descargar PDF</a>
+        </div>
+    </article>
+
+    <script>
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQoc759GTlLVYErMFI0rNCOBGXMVAd-DOr_qplFTw5sK3ACj_CLpGqy3jfBu675_6nSqe8I3pgXYiZh/pub?output=csv';
+
+        async function cargar() {
+            try {
+                const res = await fetch(sheetURL);
+                const csv = await res.text();
+                const filas = csv.split(/\r?\n/).filter(r => r.trim() !== "");
+                if (filas.length < 2) return;
+                const d = filas[1].split(',');
+
+                document.getElementById('fecha').innerText = d[0] || '--';
+                document.getElementById('hora').innerText  = d[1] || '--';
+                document.getElementById('tipo').innerText  = d[2] || 'Reporte';
+                document.getElementById('lugar').innerText = d[3] || 'N/A';
+                document.getElementById('link-pdf').href   = d[4] ? d[4].trim() : '#';
+            } catch (e) { document.getElementById('tipo').innerText = "Error"; }
+        }
+        cargar();
+    </script>
+</body>
+</html>
