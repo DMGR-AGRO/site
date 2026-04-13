@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner de Monitoreo Profesional - CMG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #002b1d; 
+            --agro-green: #006d24;
+            --bg-card: #f5f5f5;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff;
+        }
+
+        .banner-container {
+            display: flex;
+            align-items: center;
+            background: var(--bg-card);
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left: 8px solid var(--agro-green);
+            height: 100px;
+        }
+
+        .banner-visual {
+            width: 150px;
+            height: 100%;
+            background: #f8fafc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .banner-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .banner-data {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr 1fr;
+            padding: 0 25px;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .data-group { display: flex; flex-direction: column; }
+
+        .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .event-main-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--agro-green);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .risk-indicator {
+            padding: 0 20px;
+            text-align: center;
+            border-left: 1px solid #e2e8f0;
+            min-width: 150px;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            background: var(--agro-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .blink { animation: blinker 2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+
+    <div class="banner-container">
+        <div class="banner-visual">
+            <img src="natural-disaster.jpg" alt="Icono Evento">
+        </div>
+
+        <div class="banner-data">
+            <div class="data-group">
+                <p class="event-main-title">AVISO</p>
+            </div>
+
+            <div class="data-group">
+                <span class="label">Tipo de evento</span>
+                <span class="value" id="tipo-evento">Cargando...</span>
+            </div>
+            
+            <div class="data-group">
+                <span class="label">Fecha y Hora</span>
+                <span class="value" id="fecha-hora">--/--/---- --:--</span>
+            </div>
+
+            <div class="data-group">
+                <span class="label">Magnitud / Int.</span>
+                <span class="value" id="magnitud">--</span>
+            </div>
+        </div>
+
+        <div class="risk-indicator">
+            <span class="label">Zona de riesgo</span>
+            <div>
+                <span class="risk-badge blink" id="zona-riesgo">Verificando...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL de tu Google Sheets (Asegúrate que termine en output=csv)
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr7jNSzII6bkLKuSJJlfyjXsa4E8exDoTFuIyu6ilSLLX46YD7EcCqN_bMZ1t0EmNpFtzEXUkLPmoU/pub?output=csv';
+
+        async function actualizarBanner() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                const filas = data.split(/\r?\n/).map(row => row.split(','));
+
+                if (filas.length > 1) {
+                    const d = filas[1]; // Fila 2 del Sheets
+
+                    // Mapeo dinámico de datos
+                    document.getElementById('fecha-hora').innerText = d[0] || '--';
+                    document.getElementById('tipo-evento').innerText = d[1] || '--';
+                    document.getElementById('magnitud').innerText = d[2] || '--';
+                    document.getElementById('zona-riesgo').innerText = d[3] || '--';
+                }
+            } catch (error) {
+                console.error('Error al conectar con Sheets:', error);
+                document.getElementById('tipo-evento').innerText = "Error de conexión";
+            }
+        }
+
+        // Ejecutar al cargar
+        actualizarBanner();
+        // Auto-actualizar cada 1 minuto
+        setInterval(actualizarBanner, 60000);
+    </script>
+</body>
+</html>
