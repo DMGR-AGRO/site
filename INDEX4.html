@@ -8,7 +8,7 @@
     <style>
         :root {
             --primary: #9b2247;
-            --bg: #fff;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
             --text-light: #64748b;
         }
@@ -37,10 +37,9 @@
             transform: translateY(-8px);
         }
 
-        /* ESTA ES LA PARTE CLAVE PARA EL AJUSTE */
         .img-container {
             width: 100%;
-            height: 200px; /* Altura fija para que no se vea vacía */
+            height: 200px;
             overflow: hidden;
             position: relative;
             background-color: #e2e8f0;
@@ -50,8 +49,8 @@
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover; /* Ajusta la imagen al tamaño sin deformarla */
-            object-position: center; /* Centra la parte importante de la imagen */
+            object-fit: cover;
+            object-position: center;
             transition: transform 0.5s ease;
         }
 
@@ -99,7 +98,7 @@
             transition: all 0.3s ease;
         }
 
-        .report-card:hover .download-link {
+        .download-btn:hover {
             background: var(--primary);
             color: white;
         }
@@ -110,40 +109,61 @@
     <article class="report-card">
         <span class="badge">Nuevo</span>
         <div class="img-container">
-            <img src="siniestro.jpg" alt="Reporte">
+            <img src="siniestro.jpg" alt="Reporte" onerror="this.src='https://via.placeholder.com/400x300?text=Imagen+No+Encontrada'">
         </div>
         
         <div class="content">
             <h3>Reporte por evento</h3>
             <div class="info-grid">
-                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="fecha">--/--/----</span></div>
-                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="hora">--:-- --</span></div>
-                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="tipo">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="fecha">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="hora">--:--</span></div>
+                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="tipo">--</span></div>
                 <div class="info-item"><span class="info-label">Lugar</span><span class="info-value" id="lugar">--</span></div>
             </div>
-            <a href="https://drive.google.com/uc?export=download&id=1mFVyh0BZIjsfc5mHVwAQ0JPyYpI9WNtm" class="download-btn" download>Descargar PDF</a>
+            <a href="#" class="download-btn">Ver Detalle</a>
         </div>
     </article>
 
     <script>
+        // URL de tu Google Sheet publicado como CSV
         const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2bUvHtWGqWPUDJ0Qth5fV54QYnyIBAMdYgb1-HTNk5HRCLiMEFTC6I2TZjep2MEgkARkkRnbrYRHW/pub?output=csv';
 
-        async function cargar() {
+        async function cargarDatos() {
             try {
-                const res = await fetch(sheetURL);
-                const csv = await res.text();
-                const filas = csv.split(/\r?\n/).filter(r => r.trim() !== "");
-                if (filas.length < 2) return;
-                const d = filas[1].split(',');
+                const respuesta = await fetch(sheetURL);
+                if (!respuesta.ok) throw new Error("Error en red");
 
-                document.getElementById('fecha').innerText = d[0] || '--';
-                document.getElementById('hora').innerText  = d[1] || '--';
-                document.getElementById('tipo').innerText  = d[2] || 'Reporte';
-                document.getElementById('lugar').innerText = d[3] || 'N/A';
-                document.getElementById('link-pdf').href   = d[4] ? d[4].trim() : '#';
-            } catch (e) { document.getElementById('tipo').innerText = "Error"; }
+                const textoCSV = await respuesta.text();
+                
+                // Dividimos por filas y quitamos las vacías
+                const filas = textoCSV.split(/\r?\n/).filter(fila => fila.trim() !== "");
+
+                if (filas.length < 2) {
+                    console.warn("El Excel parece estar vacío.");
+                    return;
+                }
+
+                // Detectamos si el separador es coma o punto y coma (regional)
+                const separador = filas[1].includes(';') ? ';' : ',';
+                
+                // Obtenemos la segunda fila (la primera con datos después del encabezado)
+                const datos = filas[1].split(separador).map(celda => celda.replace(/"/g, '').trim());
+
+                // Insertamos los datos en el HTML
+                document.getElementById('fecha').innerText = datos[0] || '--/--/----';
+                document.getElementById('hora').innerText  = datos[1] || '--:--';
+                document.getElementById('tipo').innerText  = datos[2] || 'Evento';
+                document.getElementById('lugar').innerText = datos[3] || 'No especificado';
+
+            } catch (error) {
+                console.error("Error al cargar datos:", error);
+                document.getElementById('tipo').innerText = "Error de carga";
+                document.getElementById('tipo').style.color = "red";
+            }
         }
-        cargar();
+
+        // Ejecutar la carga al abrir la página
+        cargarDatos();
     </script>
 </body>
 </html>
