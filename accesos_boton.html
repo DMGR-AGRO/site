@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Contenedor principal */
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 300px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilo base del botón (usando el enlace del 2do ejemplo) */
+        .styled-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #007BFF; /* Color azul */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Efecto al pasar el mouse (Hover) */
+        .styled-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        /* Efecto al hacer clic */
+        .styled-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="button-container">
+    
+    <!-- Botón 1 -->
+    <a href="https://docs.google.com/spreadsheets/d/195plZQi2D7wPa0-BIf5HSELyAeOmVoIDxZsOFhKGflY/edit?usp=sharing" target="_top" class="styled-button">
+        REPORTES FOVISSSTE
+
+    </a>
+
+    <!-- Botón 2 -->
+    <a href="https://docs.google.com/spreadsheets/d/1I8_kDq16Fr8eNkGO4u-qOsbGMQJE3h3TkLOxz2T0u_c/edit?usp=sharing" target="_top" class="styled-button">
+        REPORTES INFONAVIT
+    </a>
+
+    <!-- Botón 3 (Espacio para tu tercer link) -->
+    <a href="https://docs.google.com/spreadsheets/d/1HJaAuOTXl9OXcRDmJcf9XFSpFReorotY71KwkEmP9xE/edit?usp=sharing" target="_top" class="styled-button">
+        AVISOS / ALERTAS
+    </a>
+
+</div>
+
+</body>
+</html>
