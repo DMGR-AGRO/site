@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Monitoreo Profesional - CMG</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #002b1d; 
+            --agro-green: #006d24;
+            --bg-card: #f5f5f5;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fff;
+        }
+
+        #banners-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Estructura de cada banner. Nacen ocultos (display: none) */
+        .banner-container {
+            display: none; 
+            align-items: center;
+            background: var(--bg-card);
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--agro-green);
+            height: 100px;
+        }
+
+        .banner-data {
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 1.2fr 1fr;
+            padding: 0 30px;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .data-group { display: flex; flex-direction: column; }
+
+        .label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            font-weight: 700;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .event-main-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--agro-green);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .risk-indicator {
+            padding: 0 25px;
+            text-align: center;
+            border-left: 1px solid #e2e8f0;
+            min-width: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 70%;
+        }
+
+        .risk-badge {
+            display: inline-block;
+            background: var(--agro-green);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        .blink { animation: blinker 2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0.6; } }
+    </style>
+</head>
+<body>
+
+    <div id="banners-container">
+        <div class="banner-container" id="container-1">
+            <div class="banner-data">
+                <div class="data-group"><p class="event-main-title">Alerta</p></div>
+                <div class="data-group"><span class="label">Tipo de evento/Nombre</span><span class="value" id="evento-1">Cargando...</span></div>
+                <div class="data-group"><span class="label">Fecha y Hora</span><span class="value" id="fecha-1">--/--/---- --:--</span></div>
+                <div class="data-group"><span class="label">Intensidad</span><span class="value" id="magnitud-1">--</span></div>
+            </div>
+            <div class="risk-indicator">
+                <span class="label">Zona de riesgo</span>
+                <div><span class="risk-badge blink" id="riesgo-1">Verificando...</span></div>
+            </div>
+        </div>
+
+        <div class="banner-container" id="container-2">
+            <div class="banner-data">
+                <div class="data-group"><p class="event-main-title">Alerta</p></div>
+                <div class="data-group"><span class="label">Tipo de evento/Nombre</span><span class="value" id="evento-2">Cargando...</span></div>
+                <div class="data-group"><span class="label">Fecha y Hora</span><span class="value" id="fecha-2">--/--/---- --:--</span></div>
+                <div class="data-group"><span class="label">Intensidad</span><span class="value" id="magnitud-2">--</span></div>
+            </div>
+            <div class="risk-indicator">
+                <span class="label">Zona de riesgo</span>
+                <div><span class="risk-badge blink" id="riesgo-2">Verificando...</span></div>
+            </div>
+        </div>
+
+        <div class="banner-container" id="container-3">
+            <div class="banner-data">
+                <div class="data-group"><p class="event-main-title">Alerta</p></div>
+                <div class="data-group"><span class="label">Tipo de evento/Nombre</span><span class="value" id="evento-3">Cargando...</span></div>
+                <div class="data-group"><span class="label">Fecha y Hora</span><span class="value" id="fecha-3">--/--/---- --:--</span></div>
+                <div class="data-group"><span class="label">Intensidad</span><span class="value" id="magnitud-3">--</span></div>
+            </div>
+            <div class="risk-indicator">
+                <span class="label">Zona de riesgo</span>
+                <div><span class="risk-badge blink" id="riesgo-3">Verificando...</span></div>
+            </div>
+        </div>
+
+        <div class="banner-container" id="container-4">
+            <div class="banner-data">
+                <div class="data-group"><p class="event-main-title">Alerta</p></div>
+                <div class="data-group"><span class="label">Tipo de evento/Nombre</span><span class="value" id="evento-4">Cargando...</span></div>
+                <div class="data-group"><span class="label">Fecha y Hora</span><span class="value" id="fecha-4">--/--/---- --:--</span></div>
+                <div class="data-group"><span class="label">Intensidad</span><span class="value" id="magnitud-4">--</span></div>
+            </div>
+            <div class="risk-indicator">
+                <span class="label">Zona de riesgo</span>
+                <div><span class="risk-badge blink" id="riesgo-4">Verificando...</span></div>
+            </div>
+        </div>
+
+        <div class="banner-container" id="container-5">
+            <div class="banner-data">
+                <div class="data-group"><p class="event-main-title">Alerta</p></div>
+                <div class="data-group"><span class="label">Tipo de evento/Nombre</span><span class="value" id="evento-5">Cargando...</span></div>
+                <div class="data-group"><span class="label">Fecha y Hora</span><span class="value" id="fecha-5">--/--/---- --:--</span></div>
+                <div class="data-group"><span class="label">Intensidad</span><span class="value" id="magnitud-5">--</span></div>
+            </div>
+            <div class="risk-indicator">
+                <span class="label">Zona de riesgo</span>
+                <div><span class="risk-badge blink" id="riesgo-5">Verificando...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSaEqG7TwPY6AHNIKpv-qLX03cWN5h-YP8_Xc0vOHJEQ5Te3mN477vL7guCJDnmCnVgU7z_u7QtrwRn/pub?output=csv';
+
+        function CSVtoArray(text) {
+            let p = '', r = [];
+            let q = false;
+            let row = [''];
+            for (let i = 0; i < text.length; i++) {
+                let c = text[i];
+                if (c === '"') { q = !q; }
+                else if (c === ',' && !q) { row.push(''); }
+                else if ((c === '\r' || c === '\n') && !q) {
+                    if (c === '\r' && text[i+1] === '\n') { i++; }
+                    r.push(row);
+                    row = [''];
+                } else {
+                    row[row.length - 1] += c;
+                }
+            }
+            if (row.length > 1 || row[0] !== '') { r.push(row); }
+            return r;
+        }
+
+        async function actualizarBanner() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                const filas = CSVtoArray(data);
+
+                for (let i = 1; i <= 5; i++) {
+                    // Validamos que exista la fila y que al menos la columna del evento tenga texto real
+                    if (filas[i] && filas[i][1] && filas[i][1].trim() !== "") {
+                        const d = filas[i];
+                        document.getElementById(`fecha-${i}`).innerText = d[0] || '--';
+                        document.getElementById(`evento-${i}`).innerText = d[1] || '--';
+                        document.getElementById(`magnitud-${i}`).innerText = d[2] || '--';
+                        document.getElementById(`riesgo-${i}`).innerText = d[3] || '--';
+                        
+                        // Hacemos visible el cintillo que sí tiene datos
+                        document.getElementById(`container-${i}`).style.display = 'flex';
+                    } else {
+                        // Si la fila está vacía en el Excel, nos aseguramos de mantener el cintillo oculto
+                        document.getElementById(`container-${i}`).style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error al conectar con Sheets:', error);
+                
+                // RESPALDO LOCAL: Si abres el archivo localmente, te fuerza la visualización del primer cintillo
+                // mostrando "Error de conexión" para que mantengas la referencia de cómo luce el diseño.
+                document.getElementById(`evento-1`).innerText = "Error de conexión (Modo Local)";
+                document.getElementById(`container-1`).style.display = 'flex';
+                
+                // Mantenemos ocultos los demás para que no estorben
+                for (let i = 2; i <= 5; i++) {
+                    document.getElementById(`container-${i}`).style.display = 'none';
+                }
+            }
+        }
+
+        actualizarBanner();
+        setInterval(actualizarBanner, 60000);
+    </script>
+</body>
+</html>
