@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositorio Estructurado - 3 Columnas</title>
+  <style>
+    /* Estilos generales - Fondo Blanco Absoluto */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      color: #1a2622;
+    }
+
+    /* Contenedor principal de tres columnas */
+    .columns-container {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      gap: 24px;
+    }
+
+    /* Estilo para cada columna basado en image_907508.png */
+    .column {
+      flex: 1;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+      border: 1px solid #edf2f0;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    /* Título de la columna e indicador de línea horizontal según image_907508.png */
+    .column-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #212529;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #245c4f; /* Tu verde oscuro primario como base de la línea */
+    }
+
+    /* Contenedor de bloques para separar del título */
+    .sections-wrapper {
+      margin-top: 24px;
+    }
+
+    /* ESTRUCTURA BASE DEL ACORDEÓN */
+    .section {
+      background: #f8faf9; /* Tono grisáceo/verdoso limpio en reposo */
+      border-radius: 4px; 
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(36, 92, 79, 0.02);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ==========================================================================
+       ESTADO ACTIVO: GRADIENTE INVERTIDO (Oscuro a la izquierda, Claro a la derecha)
+       ========================================================================== */
+    .section.active {
+      background: linear-gradient(75deg, #184439 0%, #245c4f 45%, #11996e 85%, #00cb82 100%);
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(36, 92, 79, 0.15);
+    }
+
+    /* Encabezado del acordeón */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #212529; 
+      transition: color 0.3s ease;
+    }
+
+    /* Cambio de color de texto a blanco al activarse */
+    .section.active .section-header h2 {
+      color: #ffffff;
+    }
+
+    /* Flecha indicadora */
+    .toggle-icon {
+      font-size: 10px;
+      color: #79948a;
+      transform: scaleY(0.8); 
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+    }
+
+    .section:not(.active):hover .toggle-icon {
+      color: #245c4f;
+    }
+
+    .section.active .toggle-icon {
+      transform: rotate(180deg) scaleY(0.8);
+      color: #ffffff; 
+    }
+
+    /* DESPLEGABLE DE DOCUMENTOS */
+    .document-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 0;
+      overflow: hidden;
+      background-color: transparent;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .section.active .document-list {
+      max-height: 1000px;
+    }
+
+    .document-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 2px 8px;
+    }
+
+    .document-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.9); 
+      border-radius: 4px;
+      transition: all 0.25s ease;
+    }
+
+    .document-link:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      padding-left: 20px; 
+    }
+
+    .icon-container {
+      margin-right: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .small-icon {
+      width: 16px;
+      height: 16px;
+      color: #ffffff; 
+      fill: currentColor;
+      opacity: 0.95;
+    }
+
+    .document-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="columns-container">
+
+    <!-- COLUMNA 1: AVISOS -->
+    <div class="column">
+      <h1 class="column-title">Avisos</h1>
+      <div class="sections-wrapper">
+        
+        <!-- Bloque Huracanes -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Aviso.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloque Sismos -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Aviso.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- COLUMNA 2: REPORTES -->
+    <div class="column">
+      <h1 class="column-title">Reportes</h1>
+      <div class="sections-wrapper">
+        
+        <!-- Bloque Huracanes -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloque Sismos -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+         <!-- Bloque Erupción Volcanica -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Erupción Volcanica</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- Bloque Inundación -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Inundación</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+       
+
+      </div>
+    </div>
+
+    <!-- COLUMNA 3: REPORTES - INTERMEDIARIO -->
+    <div class="column">
+      <h1 class="column-title">Reportes - intermediario</h1>
+      <div class="sections-wrapper">
+        
+        <!-- Bloque Agosto 2025 - Octubre 2025 -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloque Noviembre 2025 - Enero 2026 -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloque Febrero 2026 - Abril 2026 -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Erupción Volcanica</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloque Mayo 2026 - Agosto 2026 -->
+        <div class="section">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Inundación</h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list">
+            <li class="document-item">
+              <a href="#" class="document-link">
+                <div class="icon-container">
+                  <svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>
+                </div>
+                <span class="document-name">Reporte.pdf</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleSection(element) {
+      const section = element.closest('.section');
+      section.classList.toggle('active');
+    }
+  </script>
+
+</body>
+</html>
