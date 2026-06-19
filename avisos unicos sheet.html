@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte de Eventos Dinámico</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00452e;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .report-card {
+            background: var(--card-bg);
+            width: 320px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .report-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            background-color: #e2e8f0;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .report-card:hover .img-container img {
+            transform: scale(1.1);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        .content { padding: 24px; }
+        h3 { margin: 0 0 12px 0; color: var(--primary); font-weight: 800; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .info-item { display: flex; flex-direction: column; }
+        .info-label { font-size: 0.7rem; color: var(--text-light); text-transform: uppercase; font-weight: 600; }
+        .info-value { font-size: 0.85rem; font-weight: 600; }
+
+        .download-btn {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <article class="report-card">
+        <span class="badge">Nuevo</span>
+        <div class="img-container">
+            <img src="aviso2.png" alt="Aviso">
+        </div>
+        <div class="content">
+            <h3>Aviso</h3>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="aviso-fecha">--/--/----</span></div>
+                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="aviso-hora">--:-- --</span></div>
+                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="aviso-tipo">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Lugar</span><span class="info-value" id="aviso-lugar">--</span></div>
+            </div>
+            <a href="#" id="aviso-link" class="download-btn" download>Descargar PDF</a>
+        </div>
+    </article>
+
+    <article class="report-card">
+        <span class="badge">Nuevo</span>
+        <div class="img-container">
+            <img src="reportes.jpeg" alt="Reporte">
+        </div>
+        <div class="content">
+            <h3>Reporte</h3>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="reporte-fecha">--/--/----</span></div>
+                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="reporte-hora">--:-- --</span></div>
+                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="reporte-tipo">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Lugar</span><span class="info-value" id="reporte-lugar">--</span></div>
+            </div>
+            <a href="#" id="reporte-link" class="download-btn" download>Descargar PDF</a>
+        </div>
+    </article>
+
+    <article class="report-card">
+        <span class="badge">Nuevo</span>
+        <div class="img-container">
+            <img src="intermediario.png" alt="Intermediario">
+        </div>
+        <div class="content">
+            <h3>Reporte - Intermediario</h3>
+            <div class="info-grid">
+                <div class="info-item"><span class="info-label">Fecha</span><span class="info-value" id="inter-fecha">--/--/----</span></div>
+                <div class="info-item"><span class="info-label">Hora</span><span class="info-value" id="inter-hora">--:-- --</span></div>
+                <div class="info-item"><span class="info-label">Tipo</span><span class="info-value" id="inter-tipo">Cargando...</span></div>
+                <div class="info-item"><span class="info-label">Lugar</span><span class="info-value" id="inter-lugar">--</span></div>
+            </div>
+            <a href="#" id="inter-link" class="download-btn" download>Descargar PDF</a>
+        </div>
+    </article>
+
+    <script>
+        // REEMPLAZA ESTAS URLs CON LAS DE CADA HOJA PUBLICADA POR SEPARADO
+        // Para obtenerlas, en Google Sheets ve a Archivo > Compartir > Publicar en la web.
+        // Selecciona la pestaña específica (ej. "aviso") y elige "Valores separados por comas (.csv)"
+        const URL_AVISO = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vROtEvAMMiW3xNDSJS13btUgCMZIJtMFKkBj498Egq9Pf8FSMq3wWmK9e9ayNmB-eUZlzIiHfaCpVDp/pub?gid=0&single=true&output=csv';
+        const URL_REPORTE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vROtEvAMMiW3xNDSJS13btUgCMZIJtMFKkBj498Egq9Pf8FSMq3wWmK9e9ayNmB-eUZlzIiHfaCpVDp/pub?gid=950603593&single=true&output=csv';
+        const URL_INTERMEDIARIO = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vROtEvAMMiW3xNDSJS13btUgCMZIJtMFKkBj498Egq9Pf8FSMq3wWmK9e9ayNmB-eUZlzIiHfaCpVDp/pub?gid=939628568&single=true&output=csv';
+
+        // Función reutilizable para cargar los datos de cualquier pestaña
+        async function cargarHoja(url, prefijoIds) {
+            try {
+                const res = await fetch(url);
+                const csv = await res.text();
+                // Separamos por líneas y limpiamos vacías
+                const filas = csv.split(/\r?\n/).filter(r => r.trim() !== "");
+                
+                if (filas.length < 2) return;
+                
+                // Mapeo simple de una línea CSV (manejando posibles comillas)
+                const datos = filas[1].split(',').map(item => item.replace(/^"|"$/g, '').trim());
+
+                // Asignación dinámica usando el prefijo de la tarjeta
+                if(document.getElementById(`${prefijoIds}-fecha`)) document.getElementById(`${prefijoIds}-fecha`).innerText = datos[0] || '--';
+                if(document.getElementById(`${prefijoIds}-hora`))  document.getElementById(`${prefijoIds}-hora`).innerText  = datos[1] || '--';
+                if(document.getElementById(`${prefijoIds}-tipo`))  document.getElementById(`${prefijoIds}-tipo`).innerText  = datos[2] || 'N/A';
+                if(document.getElementById(`${prefijoIds}-lugar`)) document.getElementById(`${prefijoIds}-lugar`).innerText = datos[3] || 'N/A';
+                
+                // Si tienes una quinta columna (E) con el enlace de descarga del PDF en tu hoja:
+                if (datos[4] && document.getElementById(`${prefijoIds}-link`)) {
+                    document.getElementById(`${prefijoIds}-link`).href = datos[4];
+                }
+            } catch (e) {
+                console.error("Error cargando la hoja: " + prefijoIds, e);
+                if(document.getElementById(`${prefijoIds}-tipo`)) document.getElementById(`${prefijoIds}-tipo`).innerText = "Error";
+            }
+        }
+
+        // Ejecutar las tres cargas en paralelo
+        async function cargarTodo() {
+            await Promise.all([
+                cargarHoja(URL_AVISO, 'aviso'),
+                cargarHoja(URL_REPORTE, 'reporte'),
+                cargarHoja(URL_INTERMEDIARIO, 'inter')
+            ]);
+        }
+
+        cargarTodo();
+    </script>
+</body>
+</html>
