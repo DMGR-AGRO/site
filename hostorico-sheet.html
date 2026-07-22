@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Repositorio Estructurado - Dinámico desde Google Sheets</title>
+  <style>
+    /* Estilos generales - Fondo Blanco Absoluto */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      color: #1a2622;
+    }
+
+    /* Contenedor principal de tres columnas */
+    .columns-container {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      gap: 24px;
+    }
+
+    .column {
+      flex: 1;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); 
+      border: 1px solid #edf2f0;
+      padding: 24px;
+      overflow: hidden;
+    }
+
+    .column-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #212529;
+      margin-top: 0;
+      margin-bottom: 0;
+      padding-bottom: 8px;
+      border-bottom: 3px solid #245c4f;
+    }
+
+    .sections-wrapper {
+      margin-top: 24px;
+    }
+
+    /* ESTRUCTURA BASE DEL ACORDEÓN */
+    .section {
+      background: #f8faf9;
+      border-radius: 4px; 
+      margin-bottom: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(36, 92, 79, 0.02);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .section.active {
+      background: linear-gradient(75deg, #184439 0%, #245c4f 45%, #11996e 85%, #00cb82 100%);
+      border-color: transparent;
+      box-shadow: 0 8px 20px rgba(36, 92, 79, 0.15);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: #212529; 
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Badge con el conteo de documentos */
+    .doc-count {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 12px;
+      background: rgba(36, 92, 79, 0.1);
+      color: #245c4f;
+      transition: all 0.3s ease;
+    }
+
+    .section.active .section-header h2 {
+      color: #ffffff;
+    }
+
+    .section.active .doc-count {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    .toggle-icon {
+      font-size: 10px;
+      color: #79948a;
+      transform: scaleY(0.8); 
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+    }
+
+    .section:not(.active):hover .toggle-icon {
+      color: #245c4f;
+    }
+
+    .section.active .toggle-icon {
+      transform: rotate(180deg) scaleY(0.8);
+      color: #ffffff; 
+    }
+
+    /* DESPLEGABLE DE DOCUMENTOS CON SCROLL INTERNO */
+    .document-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 0;
+      overflow-y: auto; /* Permite scroll vertical interno si hay varios archivos */
+      background-color: transparent;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Personalización de la barra de scroll para que se vea fina y elegante */
+    .document-list::-webkit-scrollbar {
+      width: 5px;
+    }
+    .document-list::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .document-list::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    .section.active .document-list {
+      max-height: 320px; /* Altura ideal: aproximadamente 6 a 7 documentos visibles antes de hacer scroll */
+    }
+
+    .document-item {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 2px 8px;
+    }
+
+    .document-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.9); 
+      border-radius: 4px;
+      transition: all 0.25s ease;
+    }
+
+    .document-link:hover {
+      background-color: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      padding-left: 18px; 
+    }
+
+    .icon-container {
+      margin-right: 12px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .small-icon {
+      width: 16px;
+      height: 16px;
+      color: #ffffff; 
+      fill: currentColor;
+      opacity: 0.95;
+    }
+
+    .document-name {
+      font-size: 13.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-grow: 1;
+    }
+
+    .empty-msg {
+      padding: 14px 20px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.7);
+      font-style: italic;
+    }
+  </style>
+
+  <!-- Librería Parse CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+
+  <div class="columns-container">
+
+    <!-- COLUMNA 1: AVISOS -->
+    <div class="column">
+      <h1 class="column-title">Avisos</h1>
+      <div class="sections-wrapper">
+        <div class="section" data-col="Avisos" data-sec="Huracanes">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Avisos" data-sec="Sismos">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMNA 2: REPORTES -->
+    <div class="column">
+      <h1 class="column-title">Reportes</h1>
+      <div class="sections-wrapper">
+        <div class="section" data-col="Reportes" data-sec="Huracanes">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes" data-sec="Sismos">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes" data-sec="Erupción Volcanica">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Erupción Volcanica <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes" data-sec="Inundación">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Inundación <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMNA 3: REPORTES - INTERMEDIARIO -->
+    <div class="column">
+      <h1 class="column-title">Reportes - intermediario</h1>
+      <div class="sections-wrapper">
+        <div class="section" data-col="Reportes - intermediario" data-sec="Huracanes">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Huracanes <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes - intermediario" data-sec="Sismos">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Sismos <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes - intermediario" data-sec="Erupción Volcanica">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Erupción Volcanica <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+
+        <div class="section" data-col="Reportes - intermediario" data-sec="Inundación">
+          <div class="section-header" onclick="toggleSection(this)">
+            <h2>Inundación <span class="doc-count">0</span></h2>
+            <span class="toggle-icon">&#9660;</span>
+          </div>
+          <ul class="document-list"></ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Pega aquí la URL CSV publicada desde tu Google Sheets
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=tsv';
+
+    function toggleSection(element) {
+      const section = element.closest('.section');
+      section.classList.toggle('active');
+    }
+
+    const docIconSvg = `<svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>`;
+
+    function loadDocumentsFromSheet() {
+      if (!CSV_URL || CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=tsv') {
+        console.warn('Recuerda colocar el enlace CSV de tu Google Sheet en la variable CSV_URL.');
+        return;
+      }
+
+      Papa.parse(CSV_URL, {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          const rows = results.data;
+          const groupedData = {};
+
+          rows.forEach(row => {
+            const col = row.Columna ? row.Columna.trim() : '';
+            const sec = row.Seccion ? row.Seccion.trim() : '';
+            const title = row.Titulo ? row.Titulo.trim() : 'Documento sin título';
+            const link = row.Link ? row.Link.trim() : '#';
+
+            if (!groupedData[col]) groupedData[col] = {};
+            if (!groupedData[col][sec]) groupedData[col][sec] = [];
+
+            groupedData[col][sec].push({ title, link });
+          });
+
+          document.querySelectorAll('.section').forEach(sectionEl => {
+            const colName = sectionEl.getAttribute('data-col');
+            const secName = sectionEl.getAttribute('data-sec');
+            const listEl = sectionEl.querySelector('.document-list');
+            const countEl = sectionEl.querySelector('.doc-count');
+
+            const docs = groupedData[colName] && groupedData[colName][secName] 
+              ? groupedData[colName][secName] 
+              : [];
+
+            // Actualizar número de elementos en la etiqueta
+            if (countEl) countEl.textContent = docs.length;
+
+            if (docs.length > 0) {
+              listEl.innerHTML = docs.map(doc => `
+                <li class="document-item">
+                  <a href="${doc.link}" target="_blank" rel="noopener noreferrer" class="document-link">
+                    <div class="icon-container">${docIconSvg}</div>
+                    <span class="document-name" title="${doc.title}">${doc.title}</span>
+                  </a>
+                </li>
+              `).join('');
+            } else {
+              listEl.innerHTML = `<div class="empty-msg">Sin documentos registrados</div>`;
+            }
+          });
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDocumentsFromSheet);
+  </script>
+
+</body>
+</html>
