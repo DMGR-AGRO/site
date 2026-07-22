@@ -309,7 +309,7 @@
 
   <script>
     // Pega aquí la URL CSV publicada desde tu Google Sheets
-    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=tsv';
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=csv';
 
     function toggleSection(element) {
       const section = element.closest('.section');
@@ -319,7 +319,7 @@
     const docIconSvg = `<svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>`;
 
     function loadDocumentsFromSheet() {
-      if (!CSV_URL || CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=tsv') {
+      if (!CSV_URL || CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=csv') {
         console.warn('Recuerda colocar el enlace CSV de tu Google Sheet en la variable CSV_URL.');
         return;
       }
