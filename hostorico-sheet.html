@@ -200,7 +200,7 @@
     }
   </style>
 
-  <!-- Librería PapaParse -->
+  <!-- Librería Parse CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
@@ -318,11 +318,6 @@
     const docIconSvg = `<svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>`;
 
     function loadDocumentsFromSheet() {
-      if (!CSV_URL) {
-        console.warn('Falta definir la URL en la variable CSV_URL.');
-        return;
-      }
-
       Papa.parse(CSV_URL, {
         download: true,
         header: true,
@@ -368,9 +363,6 @@
               listEl.innerHTML = `<div class="empty-msg">Sin documentos registrados</div>`;
             }
           });
-        },
-        error: function(err) {
-          console.error("Error al leer el archivo de Google Sheets:", err);
         }
       });
     }
