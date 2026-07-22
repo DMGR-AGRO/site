@@ -126,12 +126,12 @@
       padding: 0;
       margin: 0;
       max-height: 0;
-      overflow-y: auto; /* Permite scroll vertical interno si hay varios archivos */
+      overflow-y: auto;
       background-color: transparent;
       transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    /* Personalización de la barra de scroll para que se vea fina y elegante */
+    /* Personalización de la barra de scroll */
     .document-list::-webkit-scrollbar {
       width: 5px;
     }
@@ -144,7 +144,7 @@
     }
 
     .section.active .document-list {
-      max-height: 320px; /* Altura ideal: aproximadamente 6 a 7 documentos visibles antes de hacer scroll */
+      max-height: 320px;
     }
 
     .document-item {
@@ -200,7 +200,7 @@
     }
   </style>
 
-  <!-- Librería Parse CSV -->
+  <!-- Librería PapaParse -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 </head>
 <body>
@@ -308,7 +308,6 @@
   </div>
 
   <script>
-    // Pega aquí la URL CSV publicada desde tu Google Sheets
     const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=csv';
 
     function toggleSection(element) {
@@ -319,8 +318,8 @@
     const docIconSvg = `<svg class="small-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 6h-4v2h4v2h-4v2h4v2H9V7h6v2z"/></svg>`;
 
     function loadDocumentsFromSheet() {
-      if (!CSV_URL || CSV_URL === 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQr8_EvLwZCvx9WSegAc4mSlTmldsMJuvdd3L7INd3rfQ1L3meZSwsyVUf4sQ3Cm2zW3vKNAASEGO5m/pub?output=csv') {
-        console.warn('Recuerda colocar el enlace CSV de tu Google Sheet en la variable CSV_URL.');
+      if (!CSV_URL) {
+        console.warn('Falta definir la URL en la variable CSV_URL.');
         return;
       }
 
@@ -354,7 +353,6 @@
               ? groupedData[colName][secName] 
               : [];
 
-            // Actualizar número de elementos en la etiqueta
             if (countEl) countEl.textContent = docs.length;
 
             if (docs.length > 0) {
@@ -370,6 +368,9 @@
               listEl.innerHTML = `<div class="empty-msg">Sin documentos registrados</div>`;
             }
           });
+        },
+        error: function(err) {
+          console.error("Error al leer el archivo de Google Sheets:", err);
         }
       });
     }
