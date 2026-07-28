@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarjeta Desplegable con Imagen Ajustada - Intermediario</title>
+  <style>
+    body {
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .card-accordion {
+      display: flex;
+      flex-direction: row;
+      align-items: stretch; /* Obliga a la columna de la imagen a tener la misma altura que la de texto */
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      width: 580px;
+      overflow: hidden;
+      border: 1px solid #e1e8e5;
+      cursor: pointer;
+    }
+
+    /* Contenedor de la imagen que se adapta a la altura total */
+    .card-accordion .card-media {
+      position: relative;
+      width: 210px;
+      min-width: 210px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    /* La imagen rellena siempre el 100% del alto y ancho disponible sin dejar huecos */
+    .card-accordion .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      /* Transición suave para que el reajuste de la imagen sea fluido */
+      transition: transform 0.4s ease;
+    }
+
+    /* Ligero zoom adicional opcional en la imagen al hacer hover para complementar la animación */
+    .card-accordion:hover .card-media img {
+      transform: scale(1.05);
+    }
+
+    .card-accordion .tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #0b4f3a;
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 10px;
+      padding: 5px 12px;
+      border-radius: 16px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+
+    /* Contenido de la derecha */
+    .card-accordion .card-content {
+      flex-grow: 1;
+      padding: 24px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      transition: background-color 0.3s ease;
+    }
+
+    .card-accordion:hover .card-content {
+      background-color: #f8faf9;
+    }
+
+    /* Título inicial */
+    .card-accordion .card-title {
+      margin: 0;
+      color: #0b4f3a;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-accordion .card-title::after {
+      content: '+';
+      font-size: 18px;
+      color: #0b4f3a;
+      transition: transform 0.3s ease;
+    }
+
+    .card-accordion:hover .card-title::after {
+      content: '−';
+    }
+
+    /* Animación de despliegue mediante Grid */
+    .card-accordion .expandable-body {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+      margin-top: 0;
+    }
+
+    .card-accordion .expandable-inner {
+      overflow: hidden;
+    }
+
+    .card-accordion:hover .expandable-body {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 12px;
+    }
+
+    .card-accordion .card-text {
+      color: #4a5551;
+      font-size: 13.5px;
+      line-height: 1.5;
+      margin: 0 0 16px 0;
+    }
+
+    .card-accordion .card-text strong {
+      color: #0b4f3a;
+    }
+
+    .card-accordion .btn-action {
+      display: inline-block;
+      padding: 8px 20px;
+      background-color: #0b4f3a;
+      color: #ffffff;
+      border: 2px solid #0b4f3a;
+      border-radius: 10px;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+    }
+
+    .card-accordion .btn-action:hover {
+      background-color: transparent;
+      color: #0b4f3a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-accordion">
+    <!-- Contenedor con altura flexible -->
+    <div class="card-media">
+      <img src="KPI.jpeg" alt="Reportes del Intermediario">
+      <span class="tag">Acceso</span>
+    </div>
+
+    <!-- Contenido que define la altura total al desplegar -->
+    <div class="card-content">
+      <h4 class="card-title">Portal del intermediario: Lluvia</h4>
+      
+      <div class="expandable-body">
+        <div class="expandable-inner">
+          <p class="card-text">
+            Consulte el portal de <strong>reportes e indicadores</strong>  generados directamente por la plataforma del <strong>intermediario</strong>.
+            <br><br>
+            <strong>Cobertura:</strong> Lluvia
+          </p>
+          <a href="https://fonden.raincoat.dev/" target="_top"  class="btn-action">INGRESAR AL SITIO</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
