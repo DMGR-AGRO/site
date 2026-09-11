@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrusel Infinito 360° GPU - Google Drive</title>
+  <title>Carrusel Infinito 360°  Google Drive</title>
   <style>
     :root {
       --accent-color: #08432b;
@@ -22,10 +22,21 @@
     body {
       background-color: #fff;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+    }
+
+    /* Estilo para el título en tipografía Avenir */
+    .carousel-title {
+      font-family: 'Avenir Next', Avenir, sans-serif;
+      font-size: 28px;
+      font-weight: 300;
+      color: rgb(76, 76, 76);
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     .carousel-container {
@@ -263,6 +274,9 @@
 </head>
 <body>
 
+  <!-- Título con etiqueta h3 y tipografía Avenir -->
+  <h3 class="carousel-title">Galería de Mapas</h3>
+
   <div class="carousel-container">
     <button class="carousel-btn left" onclick="scrollCarousel(-1)" aria-label="Anterior">
       <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -271,98 +285,98 @@
     <div class="carousel-track" id="carouselTrack">
       
       <!-- Tarjeta 1 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1uBVr59weVMOtQYlO41O4vEfhxFp1RXnK')">
-        <img src="https://lh3.googleusercontent.com/d/1uBVr59weVMOtQYlO41O4vEfhxFp1RXnK" alt="Imagen 1">
-        <span>Imagen 1</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1SIneg9ZMJjIdyyo5zUO8_TUv1SnHC9KX')">
+        <img src="https://lh3.googleusercontent.com/d/1SIneg9ZMJjIdyyo5zUO8_TUv1SnHC9KX" alt="VIVIENDA">
+        <span>VIVIENDA</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1uBVr59weVMOtQYlO41O4vEfhxFp1RXnK');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1SIneg9ZMJjIdyyo5zUO8_TUv1SnHC9KX');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1uBVr59weVMOtQYlO41O4vEfhxFp1RXnK" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1SIneg9ZMJjIdyyo5zUO8_TUv1SnHC9KX" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 2 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1UyZV57oHg47iVvpmUGPthCmiElu_aRhV')">
-        <img src="https://lh3.googleusercontent.com/d/1UyZV57oHg47iVvpmUGPthCmiElu_aRhV" alt="Imagen 2">
-        <span>Imagen 2</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1e3EzJ_W8poYn0wV0K_tYVVMEd0h56Ay_')">
+        <img src="https://lh3.googleusercontent.com/d/1e3EzJ_W8poYn0wV0K_tYVVMEd0h56Ay_" alt="URBANO">
+        <span>URBANO</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1UyZV57oHg47iVvpmUGPthCmiElu_aRhV');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1e3EzJ_W8poYn0wV0K_tYVVMEd0h56Ay_');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1UyZV57oHg47iVvpmUGPthCmiElu_aRhV" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1e3EzJ_W8poYn0wV0K_tYVVMEd0h56Ay_" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 3 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1XOiEtIk5bxhVLQ6DYMHuFoT3zuHzRaBw')">
-        <img src="https://lh3.googleusercontent.com/d/1XOiEtIk5bxhVLQ6DYMHuFoT3zuHzRaBw" alt="Imagen 3">
-        <span>Imagen 3</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1N_mXvbi3dbFuh7opZkY_7CWwYwMcBmtf')">
+        <img src="https://lh3.googleusercontent.com/d/1N_mXvbi3dbFuh7opZkY_7CWwYwMcBmtf" alt="SALUD">
+        <span>SALUD</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1XOiEtIk5bxhVLQ6DYMHuFoT3zuHzRaBw');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1N_mXvbi3dbFuh7opZkY_7CWwYwMcBmtf');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1XOiEtIk5bxhVLQ6DYMHuFoT3zuHzRaBw" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1N_mXvbi3dbFuh7opZkY_7CWwYwMcBmtf" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 4 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/12jyT50JuWsqQsZ-MAjCgbWmm7U4lX61B')">
-        <img src="https://lh3.googleusercontent.com/d/12jyT50JuWsqQsZ-MAjCgbWmm7U4lX61B" alt="Imagen 4">
-        <span>Imagen 4</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1SfC-QHhe0zI9sdyZ8FGSn_lnqHHdvWWM')">
+        <img src="https://lh3.googleusercontent.com/d/1SfC-QHhe0zI9sdyZ8FGSn_lnqHHdvWWM" alt="MONUMENTOS">
+        <span>MONUMENTOS</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/12jyT50JuWsqQsZ-MAjCgbWmm7U4lX61B');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1SfC-QHhe0zI9sdyZ8FGSn_lnqHHdvWWM');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=12jyT50JuWsqQsZ-MAjCgbWmm7U4lX61B" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1SfC-QHhe0zI9sdyZ8FGSn_lnqHHdvWWM" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 5 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1wW7yKV0nrb6kL9OvrxgmBRwSLueaPIXh')">
-        <img src="https://lh3.googleusercontent.com/d/1wW7yKV0nrb6kL9OvrxgmBRwSLueaPIXh" alt="Imagen 5">
-        <span>Imagen 5</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1y6YvIp0uaZqNcMYq7LiPbWJx2ZCdcpQs')">
+        <img src="https://lh3.googleusercontent.com/d/1y6YvIp0uaZqNcMYq7LiPbWJx2ZCdcpQs" alt="HIDRAULICO">
+        <span>HIDRAULICO</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1wW7yKV0nrb6kL9OvrxgmBRwSLueaPIXh');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1y6YvIp0uaZqNcMYq7LiPbWJx2ZCdcpQs');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1wW7yKV0nrb6kL9OvrxgmBRwSLueaPIXh" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1y6YvIp0uaZqNcMYq7LiPbWJx2ZCdcpQs" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 6 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1YTGe7vJjWxcdatDtJFr1sWSdipuKhS5D')">
-        <img src="https://lh3.googleusercontent.com/d/1YTGe7vJjWxcdatDtJFr1sWSdipuKhS5D" alt="Imagen 6">
-        <span>Imagen 6</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1GTFjrfLd4AUV8p48WACYIfqWrGB3PIzF')">
+        <img src="https://lh3.googleusercontent.com/d/1GTFjrfLd4AUV8p48WACYIfqWrGB3PIzF" alt="EDUCATIVO">
+        <span>EDUCATIVO</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1YTGe7vJjWxcdatDtJFr1sWSdipuKhS5D');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1GTFjrfLd4AUV8p48WACYIfqWrGB3PIzF');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1YTGe7vJjWxcdatDtJFr1sWSdipuKhS5D" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1GTFjrfLd4AUV8p48WACYIfqWrGB3PIzF" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
       </div>
 
       <!-- Tarjeta 7 -->
-      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/16tcPVVZhTDPkDZG3ijN20kTCghkqjoUa')">
-        <img src="https://lh3.googleusercontent.com/d/16tcPVVZhTDPkDZG3ijN20kTCghkqjoUa" alt="Imagen 7">
-        <span>Imagen 7</span>
+      <div class="carousel-card" onclick="openLightbox('https://lh3.googleusercontent.com/d/1RJnZYrcNxDeCECI1oLv6EYP0GJAwamr9')">
+        <img src="https://lh3.googleusercontent.com/d/1RJnZYrcNxDeCECI1oLv6EYP0GJAwamr9" alt="CARRETERO">
+        <span>CARRETERO</span>
         <div class="card-actions">
-          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/16tcPVVZhTDPkDZG3ijN20kTCghkqjoUa');">
+          <button class="btn-action" title="Ampliar" onclick="event.stopPropagation(); openLightbox('https://lh3.googleusercontent.com/d/1RJnZYrcNxDeCECI1oLv6EYP0GJAwamr9');">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
           </button>
-          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=16tcPVVZhTDPkDZG3ijN20kTCghkqjoUa" target="_blank" onclick="event.stopPropagation();">
+          <a class="btn-action" title="Descargar" href="https://drive.google.com/uc?export=download&id=1RJnZYrcNxDeCECI1oLv6EYP0GJAwamr9" target="_blank" onclick="event.stopPropagation();">
             <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           </a>
         </div>
@@ -396,18 +410,16 @@
     const modalDownloadBtn = document.getElementById('modalDownloadBtn');
 
     let isMoving = false;
-    const cardsToMove = 3; // Mueve de 3 en 3
-    const gap = 16;        // Coincide con gap: 16px en CSS
+    const cardsToMove = 3; 
+    const gap = 16; 
 
     function scrollCarousel(direction) {
       if (isMoving) return;
       isMoving = true;
 
-      // Calcula la distancia exacta de desplazamiento
       const moveDistance = carouselTrack.clientWidth + gap;
 
       if (direction === 1) {
-        // --- AVANZAR (SIGUIENTE) ---
         carouselTrack.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
         carouselTrack.style.transform = `translateX(-${moveDistance}px)`;
 
@@ -415,33 +427,27 @@
           carouselTrack.removeEventListener('transitionend', handleNextEnd);
           carouselTrack.style.transition = 'none';
 
-          // Mueve silenciosamente las primeras 3 tarjetas al final
           for (let i = 0; i < cardsToMove; i++) {
             carouselTrack.appendChild(carouselTrack.firstElementChild);
           }
 
-          // Resetea la posición al instante
           carouselTrack.style.transform = 'translateX(0)';
-          void carouselTrack.offsetHeight; // Forzar reflow limpio
+          void carouselTrack.offsetHeight; 
           isMoving = false;
         };
 
         carouselTrack.addEventListener('transitionend', handleNextEnd);
 
       } else {
-        // --- RETROCEDER (ANTERIOR) ---
         carouselTrack.style.transition = 'none';
 
-        // Mueve silenciosamente las últimas 3 tarjetas al inicio
         for (let i = 0; i < cardsToMove; i++) {
           carouselTrack.insertBefore(carouselTrack.lastElementChild, carouselTrack.firstElementChild);
         }
 
-        // Posiciona el contenedor a la izquierda sin animación
         carouselTrack.style.transform = `translateX(-${moveDistance}px)`;
-        void carouselTrack.offsetHeight; // Forzar reflow limpio
+        void carouselTrack.offsetHeight; 
 
-        // Anima suavemente hacia 0
         carouselTrack.style.transition = 'transform 0.45s cubic-bezier(0.25, 1, 0.5, 1)';
         carouselTrack.style.transform = 'translateX(0)';
 
@@ -457,7 +463,6 @@
     function openLightbox(imageSrc) {
       modalImage.src = imageSrc;
       
-      // Extrae el ID de la imagen en Google Drive y configura la descarga directa
       const match = imageSrc.match(/\/d\/([a-zA-Z0-9_-]+)/);
       if (match && match[1]) {
         modalDownloadBtn.href = `https://drive.google.com/uc?export=download&id=${match[1]}`;
